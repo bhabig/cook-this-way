@@ -8,7 +8,7 @@ end
 
 use Rack::Session::Cookie, :secret => 'A{c8KudHWXo6EphvcCL>LNJtXWpHCe'
 use OmniAuth::Builder do
-  provider :facebook, ENV['APP_ID'], ENV['APP_SECRET'], :scope => 'email,read_stream'
+  provider :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'], :scope => 'email,read_stream'
 end
 
 use RecipesController
