@@ -1,10 +1,10 @@
-
 require './config/environment'
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/redirect_with_flash'
+Dotenv.load
 
 class ApplicationController < Sinatra::Base
 
