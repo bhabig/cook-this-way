@@ -1,4 +1,7 @@
-require 'sinatra/base'
 class UsersController < ApplicationController
-  enable :sessions
+
+  get '/signup' do
+    erb :'/users/signup'
+  end
+
 end

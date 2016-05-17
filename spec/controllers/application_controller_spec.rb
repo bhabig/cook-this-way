@@ -6,8 +6,7 @@ describe ApplicationController do
     it 'loads the homepage' do
       get '/'
       expect(last_response.status).to eq(200)
-      expect(last_response.body).to include("This is the index page")
+      expect(last_response.body).to include("Cook This Way")
     end
   end
-
 end

@@ -7,16 +7,16 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
-  <title>TestApp</title>
+  <title>Cook This Way | Recipes OUR Way That You Can Make Your Own</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/stylesheets/main.css" />
 </head>
 <body>
   <div class="wrapper">
     <header class="branding">
-      <h1>TestApp</h1>
+      <div class="jumbotron"><h1>Main Header Here</h1></div>
     </header>
 
     <div class="main">
@@ -24,11 +24,20 @@
     </div>
 
     <footer class="branding">
-      <small>&copy; <%= Time.now.year %></small>
+      <small>&copy; 2016</small>
     </footer>
   </div>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script>
+    //** removes alerts after 4 seconds */
+    window.setTimeout(function() {
+        $(".alert").fadeTo(4500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 4000);
+  </script>
   <!--[if lt IE 7]>
     <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
     <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
