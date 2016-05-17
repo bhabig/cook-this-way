@@ -9,4 +9,6 @@ describe ApplicationController do
       expect(last_response.body).to include("Cook This Way")
     end
   end
+
+
 end

@@ -8,6 +8,7 @@ gem 'sinatra-redirect-with-flash'
 gem 'require_all'
 gem 'bcrypt'
 gem 'thin'
+gem 'omniauth-facebook'
 
 group :development do
  gem 'sqlite3'
@@ -15,6 +16,7 @@ group :development do
  gem 'faker'
  gem 'pry'
  gem 'shotgun'
+ gem 'dotenv'
 end
 
 group :production do

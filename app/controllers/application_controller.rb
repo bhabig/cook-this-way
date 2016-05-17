@@ -1,3 +1,4 @@
+
 require './config/environment'
 require 'sinatra'
 require 'sinatra/activerecord'
