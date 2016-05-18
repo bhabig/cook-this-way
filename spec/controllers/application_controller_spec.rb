@@ -1,5 +1,6 @@
 require 'spec_helper'
 
+
 describe ApplicationController do
 
   describe "Homepage" do
@@ -8,7 +9,11 @@ describe ApplicationController do
       expect(last_response.status).to eq(200)
       expect(last_response.body).to include("Cook This Way")
     end
-  end
 
+    it 'has a link to view all recipes' do
+      visit '/'
+      expect(page).to have_link 'Recipes', href: '/recipes'
+    end
+  end
 
 end

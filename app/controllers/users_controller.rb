@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   get '/signout' do
     session[:user_id] = nil
-    redirect to '/'''
+    redirect to '/'
   end
 
 
