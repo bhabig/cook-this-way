@@ -1,35 +1,22 @@
+require 'sinatra/base'
+
 class UsersController < ApplicationController
-
-  get '/signup' do
-    erb :'/users/signup'
-  end
-
-  get '/login' do
-    erb "<a href='/auth/facebook'>Login with facebook</a><br>"
-  end
+  enable :sessions
 
   get '/auth/:provider/callback' do
-    erb "<h1>#{params[:provider]}</h1>
-         <pre>#{JSON.pretty_generate(request.env['omniauth.auth'])}</pre>"
+    @user = User.from_omniauth(env["omniauth.auth"])
+    session[:user_id] = @user.id
+    redirect to '/recipes'
   end
 
   get '/auth/failure' do
-    erb "<h1>Authentication Failed:</h1><h3>message:<h3> <pre>#{params}</pre>"
+    redirect to '/'
   end
 
-  get '/auth/:provider/deauthorized' do
-    erb "#{params[:provider]} has deauthorized this app."
+  get '/signout' do
+    session[:user_id] = nil
+    redirect to '/'''
   end
 
-  get '/protected' do
-    throw(:halt, [401, "Not authorized\n"]) unless session[:authenticated]
-    erb "<pre>#{request.env['omniauth.auth'].to_json}</pre><hr>
-         <a href='/logout'>Logout</a>"
-  end
-
-  get '/logout' do
-    session[:authenticated] = false
-    redirect '/'
-  end
 
 end

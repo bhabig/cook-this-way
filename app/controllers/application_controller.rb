@@ -12,11 +12,16 @@ class ApplicationController < Sinatra::Base
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions
-    set :session_secret, "password_security"
+    set :session_secret, ENV['RACK_SESSION']
   end
 
   get '/' do
-    erb :index
+    if !session[:user_id]
+      erb :index
+    else
+      @user = User.find(session[:user_id])
+      erb :index
+    end
   end
 
   helpers do

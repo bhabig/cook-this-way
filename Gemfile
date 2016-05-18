@@ -9,6 +9,7 @@ gem 'require_all'
 gem 'bcrypt'
 gem 'thin'
 gem 'omniauth-facebook'
+gem 'koala'
 
 group :development do
  gem 'sqlite3'
