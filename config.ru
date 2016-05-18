@@ -1,5 +1,4 @@
-# require 'dotenv' # Breaks Heroku
-# Dotenv.load
+
 require './config/environment'
 
 if ActiveRecord::Migrator.needs_migration?
