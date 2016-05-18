@@ -29,7 +29,7 @@ OmniAuth.config.on_failure = Proc.new { |env|
  }
 end
 
-  describe "Homepage" do
+  describe "Facebook Integration" do
 
     it 'has a link to sign in with Facebook' do
       visit '/'

@@ -12,8 +12,7 @@ describe ApplicationController do
 
     it 'has a link to view all recipes' do
       visit '/'
-      expect(page).to have_link 'Recipes', href: '/recipes'
+      expect(page).to have_link 'View All', href: '/recipes'
     end
   end
-
 end

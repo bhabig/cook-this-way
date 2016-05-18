@@ -3,11 +3,3 @@
 <div class="content">
   <p>Recipes OUR way that you can make your own!</p>
 </div>
-<div id="user_nav">
-  <% if !@user %>
-    <a href="/auth/facebook">Sign in with Facebook</a>
-  <% else %>
-    Signed in as <strong><%= @user.name %></strong>!
-    <a href="/signout">Sign out</a>
-  <% end %>
-</div>
