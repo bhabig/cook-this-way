@@ -1,5 +1,6 @@
-require 'dotenv' # Breaks Heroku
-Dotenv.load
+require 'dotenv' if ENV['RACK_ENV'] == 'development'
+Dotenv.load if ENV['RACK_ENV'] == 'development'
+
 require './config/environment'
 
 if ActiveRecord::Migrator.needs_migration?
