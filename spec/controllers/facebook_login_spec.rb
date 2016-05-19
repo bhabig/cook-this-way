@@ -56,15 +56,15 @@ end
     expect(page).to have_link 'Sign in with Facebook', href: '/auth/facebook'
   end
 
-  describe '#facebook_login' do
+  describe 'Logging in with Facebook' do
     before(:each) do
       facebook_login_setup
       visit '/auth/facebook'
     end
 
-    it "should be valid" do
-      get '/recipes'
-      expect(page).to have_content('List of all recipes')
+    it "is successful" do
+      expect(page).to have_content('You have successfully signed in!')
+      expect(page).to have_content('Account Page')
     end
 
   end

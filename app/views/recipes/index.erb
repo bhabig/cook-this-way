@@ -1,2 +1,5 @@
 <h2>List of all recipes</h2>
-<h4>Hello, <%= @user.name %></h4>
+<div class="alert"><%= flash.now[:message] %></div>
+<% if @user %>
+  <h4>Hello, <%= @user.name %></h4>
+<% end %>

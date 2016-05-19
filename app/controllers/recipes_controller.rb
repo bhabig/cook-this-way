@@ -1,11 +1,9 @@
 class RecipesController < ApplicationController
 
   get '/recipes' do
-    if !session[:user_id]
-      redirect to '/'
-    else
+    if session[:user_id]
       @user = User.find(session[:user_id])
-      erb :'/recipes/index'
     end
+    erb :'/recipes/index'
   end
 end

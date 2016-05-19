@@ -1,12 +1,10 @@
-require 'sinatra/base'
-
 class UsersController < ApplicationController
-  enable :sessions
 
   get '/auth/:provider/callback' do
     @user = User.from_omniauth(env["omniauth.auth"])
     session[:user_id] = @user.id
-    redirect to '/recipes'
+    flash[:message] = "You have successfully signed in!"
+    redirect to '/account'
   end
 
   get '/auth/failure' do
@@ -15,6 +13,7 @@ class UsersController < ApplicationController
 
   get '/signout' do
     session[:user_id] = nil
+    flash[:message] = "You have successfully signed out!"
     redirect to '/'
   end
 
@@ -25,5 +24,10 @@ class UsersController < ApplicationController
     else
       redirect to '/'
     end
+  end
+
+  get '/signup' do
+    flash[:message] = "You must be signed in to access that."
+    erb :'/users/call_to_sign_up'
   end
 end
