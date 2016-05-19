@@ -18,5 +18,12 @@ class UsersController < ApplicationController
     redirect to '/'
   end
 
-
+  get '/account' do
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+      erb :'/users/account'
+    else
+      redirect to '/'
+    end
+  end
 end

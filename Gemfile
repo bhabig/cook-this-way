@@ -8,6 +8,7 @@ gem 'sinatra-redirect-with-flash'
 gem 'require_all'
 gem 'bcrypt'
 gem 'thin'
+gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'koala'
 
