@@ -18,4 +18,10 @@ describe UsersController do
         expect(page).to have_content('Sign in to access all content')
       end
     end
+
+    describe "User Account Page" do
+      it 'greets them by name' do
+        
+      end
+    end
 end

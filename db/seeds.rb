@@ -5,30 +5,31 @@
 #   name = Faker::Name.name
 #   token = Faker::Lorem.characters(30)
 #   token_expires = Faker::Time.forward(30, :morning)
-#   user = User.new(
+#   user = User.create(
 #     provider: "facebook",
-#     uid: id,
-#     name: name,
-#     email: email,
-#     oauth_token: token,
-#     oauth_expires_at: token_expires
+#     uid: Faker::Number.between(100000, 1000000),
+#     name: Faker::Name.name,
+#     email: Faker::Internet.safe_email,
+#     oauth_token: Faker::Lorem.characters(30),
+#     oauth_expires_at: Faker::Time.forward(30, :morning)
 #   )
-#   user.save
 # end
-
-# Create Recipes
-# 32.times do
-#   title = Faker::Book.title
-#   user_id = Faker::Number.between(1, 8)
-#   recipe = Recipe.new(title: title, user_id: user_id)
-#   recipe.save
-# end
-
-# Create ingredients
-# 500.times do
+# # Create ingredients
+# 200.times do
 #   name = Faker::StarWars.specie
 #   measure = Faker::Hacker.noun
 #   amount = Faker::Number.decimal(1, 2)
-#   ingredient = Ingredient.create(name: name, measurement_type: measure, amount: amount)
+#   ingredient = Ingredient.create(name: Faker::StarWars.specie, measurement_type: Faker::Hacker.noun, amount: Faker::Number.decimal(1, 2))
+# end
 #
+# # Create Recipes
+# 20.times do
+#   title = Faker::Book.title
+#   user_id = Faker::Number.between(1, 6)
+#   recipe = Recipe.create(title: Faker::Book.title, user_id: Faker::Number.between(1, 6))
+#
+#   5.times do
+#     ingredient = Ingredient.find_by_id(Faker::Number.between(1, 200))
+#     recipe.ingredients << ingredient unless recipe.ingredients.include?(ingredient)
+#   end
 # end
