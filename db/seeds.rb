@@ -25,10 +25,10 @@
 # end
 
 # Create ingredients
-500.times do
-  name = Faker::StarWars.specie
-  measure = Faker::Hacker.noun
-  amount = Faker::Number.decimal(1, 2)
-  ingredient = Ingredient.create(name: name, measurement_type: measure, amount: amount)
-
-end
+# 500.times do
+#   name = Faker::StarWars.specie
+#   measure = Faker::Hacker.noun
+#   amount = Faker::Number.decimal(1, 2)
+#   ingredient = Ingredient.create(name: name, measurement_type: measure, amount: amount)
+#
+# end
