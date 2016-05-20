@@ -1,1 +1,19 @@
-<%= flash.now[:message] %>
+<span class="alert"><%= flash.now[:message] %></span>
+<h2><%= @recipe.name %> by <%= @recipe.user.name %></h2>
+<h4>Ingredients</h4>
+<table cellpadding="5">
+  <tr>
+    <th>Amount</th>
+    <th>Measurement</th>
+    <th>Ingredient</th>
+  </tr>
+    <% @recipe.ingredients.each do |ingredient| %>
+      <tr>
+        <td><%= ingredient.amount %></td>
+        <td><%= ingredient.measurement_type %></td>
+        <td><%= ingredient.name %></td>
+      </tr>
+    <% end %>
+</table>
+<h4>Instructions</h4>
+<p><%= @recipe.instructions %></p>

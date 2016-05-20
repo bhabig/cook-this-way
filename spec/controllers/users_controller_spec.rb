@@ -19,9 +19,21 @@ describe UsersController do
       end
     end
 
-    describe "User Account Page" do
-      it 'greets them by name' do
-        
+    describe 'User Account Page' do
+      before(:each) do
+        facebook_login_setup
+        visit '/auth/facebook'
       end
+
+      it "greets the user" do
+        visit '/account'
+        expect(page).to have_content('Welcome, Joe Bloggs!')
+      end
+
+      it "lists the user's recipes" do
+        visit '/account'
+        expect(page).to have_content('Your recipes')
+      end
+
     end
 end
