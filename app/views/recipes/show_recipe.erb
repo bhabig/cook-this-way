@@ -1,5 +1,6 @@
 <span class="alert"><%= flash.now[:message] %></span>
-<h2><%= @recipe.name %> by <%= @recipe.user.name %></h2>
+<h2><%= @recipe.name %></h2>
+<h6>Posted by <%= @recipe.user.name %> in <%= @recipe.category.name.titleize %></h6>
 <h4>Ingredients</h4>
 <table cellpadding="5">
   <tr>

@@ -1,4 +1,5 @@
-
+require 'dotenv' if ENV['RACK_ENV'] == 'development'
+Dotenv.load if ENV['RACK_ENV'] == 'development'
 
 require './config/environment'
 

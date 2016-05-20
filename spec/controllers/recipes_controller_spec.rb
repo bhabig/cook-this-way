@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe RecipesController do
   before do
-    @recipe = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 1, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.')
-
     @user = User.create(
       provider: "facebook",
       uid: 18616540,
@@ -12,6 +10,9 @@ describe RecipesController do
       oauth_token: 'abfuibsdfbkufgebkufbib',
       oauth_expires_at: (Date.new + 1.month).strftime("%Y-%m-%d")
     )
+    @category = Category.create(name: "yummy")
+
+    @recipe = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: @user.id, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.', category_id: @category.id)
   end
 
   it 'loads the recipes index' do
@@ -30,7 +31,7 @@ describe RecipesController do
       end
 
       it "displays the recipe's name" do
-        expect(page).to have_content(@recipe.name)
+        expect(page).to have_content(@recipe.user.name)
       end
 
       it "displays the recipe's creator" do
@@ -43,6 +44,10 @@ describe RecipesController do
 
       it "displays the recipe's instructions" do
         expect(page).to have_content(@recipe.instructions)
+      end
+
+      it "displays the recipe's category" do
+        expect(page).to have_content(@recipe.category.name.titleize)
       end
 
     end
