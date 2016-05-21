@@ -12,6 +12,7 @@ use OmniAuth::Builder do
   provider :facebook, ENV['FB_APP_ID'], ENV['FB_APP_SECRET'], :scope => 'email'
 end
 
+use CategoriesController
 use RecipesController
 use UsersController
 run ApplicationController

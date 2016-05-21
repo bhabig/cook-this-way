@@ -1,11 +1,18 @@
 <header class="main-header">
+  <div class="title">
+    <h1 class="header-h1">Cook This Way</h1>
+    <h4 class="header-h4">Recipes OUR way that you can make your own!</h4>
+  </div>
 </header>
 <div class="container">
-  <h2>Cook This Way</h2>
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
   <div class="content">
-    <p>Recipes OUR way that you can make your own!</p>
+    <% Category.all.each do |category| %>
+      <div class="col-md-4 category-box">
+        <a class="category-links" href="/categories/<%= category.slug %>"><%= category.name.titleize %></a><a href="/categories/<%= category.slug %>"><img src="/images/header-opt.jpg" class="img-responsive"></a>
+      </div>
+    <% end %>
   </div>
 </div>

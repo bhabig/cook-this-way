@@ -3,7 +3,42 @@ th, td {
 }
 
 .main-header {
-  background: url('/images/header-opt.jpg') center no-repeat;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)
+  ), url('/images/header-opt.jpg') center no-repeat;
   height: 400px;
   margin-top: -20px;
+}
+
+.category-box {
+  font-size: 2em;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+
+.header-h1 {
+  text-transform: uppercase;
+  margin: 0;
+  font-size: 3em;
+  white-space: nowrap;
+  color: white;
+}
+
+.header-h4 {
+  margin: 0;
+  font-size: 1.5em;
+  color: white;
+}
+
+a.category-links {
+  text-decoration: none;
+  color: black;
 }

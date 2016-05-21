@@ -1,0 +1,8 @@
+<div class="container">
+  <h2><%= @category.name.titleize %></h2>
+  <% @category.recipes.each do |recipe| %>
+    <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+  <% end %>
+  <br>
+  <p><i class="fa fa-arrow-left"></i> <a href="/categories">Back to Categories Page</a></p>
+</div>
