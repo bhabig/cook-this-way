@@ -12,18 +12,20 @@ describe RecipesController do
   end
 
   describe 'Create New Recipe' do
-      it 'redirects a user that is not signed in' do
-        visit '/signout'
-        visit '/recipes/new'
-        expect(page).to have_content('Sign in to access all content')
-      end
+    it 'redirects a user that is not signed in' do
+      visit '/signout'
+      visit '/recipes/new'
+      expect(page).to have_content('Sign in to access all content')
+    end
 
-      it 'shows logged in users the add a recipe page' do
-        visit '/recipes/new'
-        expect(page.status_code).to eq(200)
-      end
-      # Logged in user sees add recipe form
-      # Has fields for recipe name, instructions, ingredients, category, and tag
+    it 'shows logged in users the add a recipe page' do
+      visit '/recipes/new'
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'lets the user add a recipe' do
+      
+    end
   end
 
   it 'loads the recipes index' do

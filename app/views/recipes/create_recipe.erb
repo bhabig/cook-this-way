@@ -3,13 +3,21 @@
 <% end %>
 <h2>Add A Recipe</h2>
 <form action="">
-  <p>Name: <input type="text" name=""></p>
-  <p>Category: <% Category.all.each do |category| %>
-    <input type="radio"> <%= category.name %>
+  <p>Name: <input type="text" name="recipe[name]" required></p>
+  <p>Category (select one): <br>
+    <% Category.all.each do |category| %>
+    <input type="radio" name="recipe[category_id]" value="<%= category.id %>" required> <%= category.name %>
   <% end %></p>
-  <p>Tags: <% Tag.all.each do |tag| %>
-    <input type="checkbox"> <%= tag.name %>
+  <p>Tags (you may select more than one): <br>
+    <% Tag.all.each do |tag| %>
+    <input type="checkbox" name="recipe[tag_ids][]" value="<%= tag.id %>" required> <%= tag.name %>
   <% end %></p>
-  <p></p>
-
+  <p>Ingredients</p>
+  <p>Name: <input type="text" name="ingredient1[name]" required> Amount: <input type="text" name="ingredient1[amount]" size="5" required> Measurement: <input type="text" name="ingredient1[measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." required></p>
+  <div id="new_ingredient">
+  </div>
+  <p><input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" /> <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Last Ingredient" /></p>
+  <p>Instructions:<br />
+    <textarea name="instructions[name]" cols="40" rows="5" required></textarea></p>
+    <input type="submit" name="submit">
 </form>
