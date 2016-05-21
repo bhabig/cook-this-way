@@ -1,5 +1,11 @@
 <h2>List of all recipes</h2>
-<span class="alert"><%= flash.now[:message] %></span>
+<% if flash[:message] != nil %>
+  <span class="alert"><%= flash.now[:message] %></span>
+<% end %>
 <% if @user %>
   <h4>Hello, <%= @user.name %></h4>
+<% end %>
+
+<% Recipe.all.each do |recipe| %>
+  <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
 <% end %>

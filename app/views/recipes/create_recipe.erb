@@ -1,1 +1,15 @@
-<span class="alert"><%= flash.now[:message] %></span>
+<% if flash[:message] != nil %>
+  <span class="alert"><%= flash.now[:message] %></span>
+<% end %>
+<h2>Add A Recipe</h2>
+<form action="">
+  <p>Name: <input type="text" name=""></p>
+  <p>Category: <% Category.all.each do |category| %>
+    <input type="radio"> <%= category.name %>
+  <% end %></p>
+  <p>Tags: <% Tag.all.each do |tag| %>
+    <input type="checkbox"> <%= tag.name %>
+  <% end %></p>
+  <p></p>
+
+</form>

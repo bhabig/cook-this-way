@@ -1,8 +1,10 @@
 <h1>Account Page</h1>
-<span class="alert"><%= flash.now[:message] %></span>
+<% if flash[:message] != nil %>
+  <span class="alert"><%= flash.now[:message] %></span>
+<% end %>
 <h2>Welcome, <%= @user.name %>!</h2>
 
 <h4>Your recipes</h4>
 <% @user.recipes.each do |recipe| %>
-  <li><a href="/recipes/<%= recipe.slug %>"><%= recipe.name %></a></li>
+  <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
 <% end %>

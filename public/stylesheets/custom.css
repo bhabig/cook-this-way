@@ -1,3 +1,9 @@
 th, td {
     padding-right: 15px;
 }
+
+.main-header {
+  background: url('/images/header-opt.jpg') center no-repeat;
+  height: 400px;
+  margin-top: -20px;
+}

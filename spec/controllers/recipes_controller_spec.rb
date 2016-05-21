@@ -1,18 +1,29 @@
 require 'spec_helper'
 
 describe RecipesController do
-  before do
-    @user = User.create(
-      provider: "facebook",
-      uid: 18616540,
-      name: 'Bobby Jones',
-      email: 'bob@example.com',
-      oauth_token: 'abfuibsdfbkufgebkufbib',
-      oauth_expires_at: (Date.new + 1.month).strftime("%Y-%m-%d")
-    )
+  before(:each) do
+    facebook_login_setup
+    visit '/auth/facebook'
+    @user = User.last
+
     @category = Category.create(name: "yummy")
 
     @recipe = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: @user.id, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.', category_id: @category.id)
+  end
+
+  describe 'Create New Recipe' do
+      it 'redirects a user that is not signed in' do
+        visit '/signout'
+        visit '/recipes/new'
+        expect(page).to have_content('Sign in to access all content')
+      end
+
+      it 'shows logged in users the add a recipe page' do
+        visit '/recipes/new'
+        expect(page.status_code).to eq(200)
+      end
+      # Logged in user sees add recipe form
+      # Has fields for recipe name, instructions, ingredients, category, and tag
   end
 
   it 'loads the recipes index' do
@@ -21,9 +32,9 @@ describe RecipesController do
   end
 
   describe "recipe show pages" do
-    describe "/recipes/:slug" do
+    describe "/recipes/:id/:slug" do
       before do
-        visit "/recipes/#{@recipe.slug}"
+        visit "/recipes/#{@recipe.id}/#{@recipe.slug}"
       end
 
       it 'responds with a 200 status code' do
@@ -49,7 +60,24 @@ describe RecipesController do
       it "displays the recipe's category" do
         expect(page).to have_content(@recipe.category.name.titleize)
       end
+    end
+  end
 
+  describe "User can choose to edit or make a recipe their own" do
+    it 'responds with a 200 status code' do
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}"
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'allows logged in users to edit their recipes' do
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}"
+      expect(page).to have_button('Edit Your Recipe')
+    end
+
+    it 'allows users to make a recipe their own' do
+      visit '/signout'
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}"
+      expect(page).to have_content('Make It Your Own')
     end
   end
 

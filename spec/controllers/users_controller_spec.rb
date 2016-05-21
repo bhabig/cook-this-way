@@ -34,6 +34,5 @@ describe UsersController do
         visit '/account'
         expect(page).to have_content('Your recipes')
       end
-
     end
 end

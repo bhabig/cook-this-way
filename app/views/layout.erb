@@ -11,25 +11,22 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/stylesheets/main.css" />
   <link rel="stylesheet" href="/stylesheets/custom.css" />
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
   <%= erb(:_navigation, :layout => false) %>
-  <div class="wrapper">
-    <header class="branding">
-      <div class="jumbotron"><h1>Main Header Here</h1></div>
+    <header class="main-header">
     </header>
 
-    <div class="main">
+    <div class="container">
       <%= yield %>
     </div>
 
-    <footer class="branding">
+    <hr>
+    <footer class="container">
       <small>&copy; 2016</small>
     </footer>
-  </div>
 
   <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

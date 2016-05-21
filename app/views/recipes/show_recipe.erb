@@ -1,4 +1,6 @@
-<span class="alert"><%= flash.now[:message] %></span>
+<% if flash[:message] != nil %>
+  <span class="alert"><%= flash.now[:message] %></span>
+<% end %>
 <h2><%= @recipe.name %></h2>
 <h6>Posted by <%= @recipe.user.name %> in <%= @recipe.category.name.titleize %></h6>
 <h4>Ingredients</h4>
@@ -18,3 +20,8 @@
 </table>
 <h4>Instructions</h4>
 <p><%= @recipe.instructions %></p>
+<% if @recipe.user_id == session[:user_id] %>
+  <button>Edit Your Recipe</button>
+<% else %>
+  <button>Make It Your Own</button>
+<% end %>

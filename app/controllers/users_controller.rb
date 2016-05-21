@@ -27,7 +27,9 @@ class UsersController < ApplicationController
   end
 
   get '/signup' do
-    flash[:message] = "You must be signed in to access that."
-    erb :'/users/call_to_sign_up'
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
+    erb :'/users/signup'
   end
 end
