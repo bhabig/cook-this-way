@@ -4,11 +4,11 @@ window.setTimeout(function() {
 }, 3000);
 
 /* Allows adding/removing of input field for ingredients */
-var i = 2;
+var i = 1;
 
 function add_fields() {
     var newparagraph = document.createElement('p');
-    newparagraph.innerHTML = 'Name: <input type="text" name="ingredient[][name]" id="ingredient_name_' + i + '" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_' + i + '" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_' + i + '" required>';
+    newparagraph.innerHTML = 'Name: <input type="text" name="ingredient[][name]" id="ingredient_name_A' + i + '" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_A' + i + '" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_A' + i + '" required>';
     document.getElementById('new_ingredient').appendChild(newparagraph);
     i++
 }
@@ -17,4 +17,8 @@ function remove_fields() {
   var paragraphs = document.getElementById("new_ingredient").getElementsByTagName("p");
   var lastParagraph = paragraphs[paragraphs.length-1];
   lastParagraph.parentNode.removeChild(lastParagraph);
+}
+
+function removeDiv(divId) {
+   $("#"+divId).remove();
 }

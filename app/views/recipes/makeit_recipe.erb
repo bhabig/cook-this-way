@@ -2,9 +2,8 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <h2>Edit Your Recipe</h2>
-  <form action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>" method="post">
-    <input id="hidden" type="hidden" name="_method" value="patch">
+  <h2>Make It Your Own</h2>
+  <form action="/recipes/makeit" method="post">
     <p>Name: <input type="text" name="recipe[name]" id="recipe_name" value="<%= @recipe.name %>" required></p>
     <p>Category (select one): <br>
       <% Category.all.each do |category| %>
@@ -27,6 +26,6 @@
     <p><input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" class="btn btn-default" /> <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Added Ingredient" class="btn btn-default" /></p>
     <p>Instructions:<br />
       <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" required><%= @recipe.instructions %></textarea></p>
-      <input type="submit" value="Save Changes" name="Save Changes" class="btn btn-default"> <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>">Cancel</a>
+      <input type="submit" value="Make It Your Own!" name="Make It Your Own" class="btn btn-default"> <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>">Cancel</a>
   </form>
 </div>

@@ -1,23 +1,25 @@
-<% if flash[:message] != nil %>
-  <span class="alert"><%= flash.now[:message] %></span>
-<% end %>
-<h2>Add A Recipe</h2>
-<form action="/recipes" method="post">
-  <p>Name: <input type="text" name="recipe[name]" id="recipe_name" required></p>
-  <p>Category (select one): <br>
-    <% Category.all.each do |category| %>
-    <input type="radio" name="recipe[category_id]" value="<%= category.id %>" id="category_<%= category.id %>" required> <%= category.name %>
-  <% end %></p>
-  <p>Tags (you may select more than one): <br>
-    <% Tag.all.each do |tag| %>
-    <input type="checkbox" name="recipe[tag_ids][]" value="<%= tag.id %>" id="tag_<%= tag.id %>"> <%= tag.name %>
-  <% end %></p>
-  <p>Ingredients</p>
-  <p>Name: <input type="text" name="ingredient[][name]" id="ingredient_name_1" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_1" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_1" required></p>
-  <div id="new_ingredient">
-  </div>
-  <p><input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" /> <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Last Ingredient" /></p>
-  <p>Instructions:<br />
-    <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" required></textarea></p>
-    <input type="submit" value="Add Recipe">
-</form>
+<div class="container">
+  <% if flash[:message] != nil %>
+    <span class="alert"><%= flash.now[:message] %></span>
+  <% end %>
+  <h2>Add A Recipe</h2>
+  <form action="/recipes" method="post">
+    <p>Name: <input type="text" name="recipe[name]" id="recipe_name" required></p>
+    <p>Category (select one): <br>
+      <% Category.all.each do |category| %>
+      <input type="radio" name="recipe[category_id]" value="<%= category.id %>" id="category_<%= category.id %>" required> <%= category.name %>
+    <% end %></p>
+    <p>Tags (you may select more than one): <br>
+      <% Tag.all.each do |tag| %>
+      <input type="checkbox" name="recipe[tag_ids][]" value="<%= tag.id %>" id="tag_<%= tag.id %>"> <%= tag.name %>
+    <% end %></p>
+    <p>Ingredients</p>
+    <p>Name: <input type="text" name="ingredient[][name]" id="ingredient_name_1" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_1" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_1" required></p>
+    <div id="new_ingredient">
+    </div>
+    <p><input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" class="btn btn-default" /> <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Added Ingredient" class="btn btn-default" /></p>
+    <p>Instructions:<br />
+      <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" required></textarea></p>
+      <input type="submit" value="Add Recipe" class="btn btn-default">
+  </form>
+</div>

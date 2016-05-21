@@ -1,7 +1,11 @@
-<h2>Cook This Way</h2>
-<% if flash[:message] != nil %>
-  <span class="alert"><%= flash.now[:message] %></span>
-<% end %>
-<div class="content">
-  <p>Recipes OUR way that you can make your own!</p>
+<header class="main-header">
+</header>
+<div class="container">
+  <h2>Cook This Way</h2>
+  <% if flash[:message] != nil %>
+    <span class="alert"><%= flash.now[:message] %></span>
+  <% end %>
+  <div class="content">
+    <p>Recipes OUR way that you can make your own!</p>
+  </div>
 </div>

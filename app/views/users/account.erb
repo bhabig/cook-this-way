@@ -1,10 +1,12 @@
-<h1>Account Page</h1>
-<% if flash[:message] != nil %>
-  <span class="alert"><%= flash.now[:message] %></span>
-<% end %>
-<h2>Welcome, <%= @user.name %>!</h2>
+<div class="container">
+  <h1>Account Page</h1>
+  <% if flash[:message] != nil %>
+    <span class="alert"><%= flash.now[:message] %></span>
+  <% end %>
+  <h2>Welcome, <%= @user.name %>!</h2>
 
-<h4>Your recipes</h4>
-<% @user.recipes.each do |recipe| %>
-  <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
-<% end %>
+  <h4>Your recipes</h4>
+  <% @user.recipes.each do |recipe| %>
+    <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+  <% end %>
+</div>

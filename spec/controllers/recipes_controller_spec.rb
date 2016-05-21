@@ -56,7 +56,7 @@ describe RecipesController do
       fill_in :ingredient_amount_1, :with => 42
       fill_in :ingredient_measurement_1, :with => "slice"
       click_button "Add Another Ingredient"
-      click_button "Remove Last Ingredient"
+      click_button "Remove Added Ingredient"
       fill_in :recipe_instructions, :with => "Make it. Cook it. Eat it."
       click_button "Add Recipe"
       recipe = Recipe.last
@@ -66,6 +66,120 @@ describe RecipesController do
       expect(recipe.tags.first.name).to eq("home cookin")
       expect(recipe.ingredients.first.name).to eq("Pepperoni")
       expect(recipe.instructions).to eq("Make it. Cook it. Eat it.")
+    end
+  end
+
+  describe 'Edit A Recipe' do
+    it 'redirects a user that is not signed in' do
+      @recipe = Recipe.first
+      visit '/signout'
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/edit"
+      expect(page).to have_content('You must be signed in to edit a recipe.')
+    end
+
+    it 'redirects a user that does not own the recipe' do
+      @recipe2 = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 10, instructions: 'Bresaola rump tongue.', category_id: @category.id)
+      visit "/recipes/#{@recipe2.id}/#{@recipe2.slug}/edit"
+      expect(page).to have_content('You can only edit your recipes.')
+    end
+
+    it 'shows logged in users the edit a recipe page' do
+      @recipe = Recipe.first
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/edit"
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'lets the user to view the edit a recipe form' do
+      @recipe = Recipe.first
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/edit"
+      expect(page.body).to include('<form')
+      expect(page.body).to include('recipe[name]')
+      expect(page.body).to include('recipe[category_id]')
+      expect(page.body).to include('recipe[tag_ids][]')
+      expect(page.body).to include('ingredient[][name]')
+      expect(page.body).to include('ingredient[][amount]')
+      expect(page.body).to include('ingredient[][measurement_type]')
+      expect(page.body).to include('recipe[instructions]')
+    end
+
+    it 'allows the user to edit a recipe' do
+      @recipe = Recipe.first
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/edit"
+      fill_in :recipe_name, :with => "Pepperoni Monkey Bread"
+      choose "category_#{Category.last.id}"
+      check "tag_#{Tag.last.id}"
+      fill_in :ingredient_name_1, :with => "Pepperoni"
+      fill_in :ingredient_amount_1, :with => 42
+      fill_in :ingredient_measurement_1, :with => "slice"
+      click_button "Add Another Ingredient"
+      click_button "Remove Added Ingredient"
+      fill_in :recipe_instructions, :with => "Make it. Cook it. Eat it."
+      click_on "Save Changes"
+      recipe = Recipe.first
+
+      expect(recipe.name).to eq("Pepperoni Monkey Bread")
+      expect(recipe.category.name).to eq("delish")
+      expect(recipe.tags.last.name).to eq("home cookin")
+      expect(recipe.ingredients.first.name).to eq("Pepperoni")
+      expect(recipe.instructions).to eq("Make it. Cook it. Eat it.")
+    end
+  end
+
+  describe 'Make A Recipe Your Own' do
+    it 'redirects a user that is not signed in' do
+      @recipe = Recipe.first
+      visit '/signout'
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/makeit"
+      expect(page).to have_content('You must be signed in to make a recipe your own.')
+    end
+
+    it 'redirects a user that owns the recipe' do
+      @recipe = Recipe.first
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/makeit"
+      expect(page).to have_content('That recipe already belongs to you.')
+    end
+
+    it 'shows logged in users the make it your recipe page' do
+      @recipe = Recipe.first
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/makeit"
+      expect(page.status_code).to eq(200)
+    end
+
+    it 'lets the user view the make it your recipe form' do
+      @recipe2 = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 10, instructions: 'Bresaola rump tongue.', category_id: @category.id)
+      @recipe2.ingredients << Ingredient.create(name: "Dough", measurement_type: "crust", amount: 1)
+      visit "/recipes/#{@recipe2.id}/#{@recipe2.slug}/makeit"
+      expect(page.body).to include('<form')
+      expect(page.body).to include('recipe[name]')
+      expect(page.body).to include('recipe[category_id]')
+      expect(page.body).to include('recipe[tag_ids][]')
+      expect(page.body).to include('ingredient[][name]')
+      expect(page.body).to include('ingredient[][amount]')
+      expect(page.body).to include('ingredient[][measurement_type]')
+      expect(page.body).to include('recipe[instructions]')
+    end
+
+    it 'allows the user to make a recipe their own' do
+      @recipe2 = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 10, instructions: 'Bresaola rump tongue.', category_id: @category.id)
+      @recipe2.ingredients << Ingredient.create(name: "Dough", measurement_type: "crust", amount: 1)
+      visit "/recipes/#{@recipe2.id}/#{@recipe2.slug}/makeit"
+      fill_in :recipe_name, :with => "Pepperoni Monkey Bread"
+      choose "category_#{Category.last.id}"
+      check "tag_#{Tag.last.id}"
+      fill_in :ingredient_name_1, :with => "Pepperoni"
+      fill_in :ingredient_amount_1, :with => 42
+      fill_in :ingredient_measurement_1, :with => "slice"
+      click_button "Add Another Ingredient"
+      click_button "Remove Added Ingredient"
+      fill_in :recipe_instructions, :with => "Make it. Cook it. Eat it."
+      click_on "Make It Your Own"
+      recipe2 = Recipe.last
+
+      expect(recipe2.name).to eq("Pepperoni Monkey Bread")
+      expect(recipe2.category.name).to eq("delish")
+      expect(recipe2.tags.last.name).to eq("home cookin")
+      expect(recipe2.ingredients.first.name).to eq("Pepperoni")
+      expect(recipe2.instructions).to eq("Make it. Cook it. Eat it.")
     end
   end
 
@@ -114,7 +228,7 @@ describe RecipesController do
 
     it 'allows logged in users to edit their recipes' do
       visit "/recipes/#{@recipe.id}/#{@recipe.slug}"
-      expect(page).to have_button('Edit Your Recipe')
+      expect(page).to have_link('Edit Your Recipe')
     end
 
     it 'allows users to make a recipe their own' do
