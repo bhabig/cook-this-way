@@ -8,7 +8,7 @@ var i = 2;
 
 function add_fields() {
     var newparagraph = document.createElement('p');
-    newparagraph.innerHTML = 'Name: <input type="text" name="ingredients' + i + '[name]" required> Amount: <input type="text" name="ingredient' + i + '[amount]" size="5" required> Measurement: <input type="text" name="ingredient' + i + '[measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." required>';
+    newparagraph.innerHTML = 'Name: <input type="text" name="ingredient[][name]" id="ingredient_name_' + i + '" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_' + i + '" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_' + i + '" required>';
     document.getElementById('new_ingredient').appendChild(newparagraph);
     i++
 }
