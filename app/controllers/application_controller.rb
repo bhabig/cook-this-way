@@ -19,19 +19,19 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     register Sinatra::Flash
     set :session_secret, ENV['SESSION_KEY'] || 'CAbo7bFkcNVh7MEjXPK)[agfkvRJv'
-    set :raise_errors, true
-    set :show_exceptions, true
+    set :raise_errors, false
+    set :show_exceptions, false
   end
 
-  # error do
-  #   status 404
-  #   erb :error
-  # end
-  #
-  # error Sinatra::NotFound do
-  #   status 404
-  #   erb :error
-  # end
+  error do
+    status 404
+    erb :error
+  end
+
+  error Sinatra::NotFound do
+    status 404
+    erb :error
+  end
 
   get '/' do
     if !session[:user_id]
