@@ -1,26 +1,8 @@
 <div class="container">
-  <div class="col-md-4 category-box">
-    <a class="category-links" href="/categories/appetizers">Appetizers</a>
-    <a href="/categories/appetizers"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-  </div>
-  <div class="col-md-4 category-box">
-    <a class="category-links" href="/categories/appetizers">Soups</a>
-    <a href="/categories/appetizers"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-  </div>
-  <div class="col-md-4 category-box">
-    <a class="category-links" href="/categories/appetizers">Salads</a>
-    <a href="/categories/appetizers"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-  </div>
-  <div class="col-md-4 category-box">
-    <a class="category-links" href="/categories/appetizers">Entrées</a>
-    <a href="/categories/appetizers"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-  </div>
-  <div class="col-md-4 category-box">
-    <a class="category-links" href="/categories/appetizers">Desserts</a>
-    <a href="/categories/appetizers"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-  </div>
-  <div class="col-md-4 category-box">
-    <a class="category-links" href="/categories/appetizers">Beverages</a>
-    <a href="/categories/appetizers"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-  </div>
+  <% Category.all.each do |category| %>
+    <div class="col-md-4 category-box">
+      <a class="category-links" href="/categories/<%= category.slug %>"><%= category.name.titleize %></a><a href="/categories/<%= category.slug %>"><img src="/images/header-opt.jpg" class="img-responsive"></a>
+    </div>
+  <% end %>
+
 </div>
