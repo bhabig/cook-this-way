@@ -11,6 +11,7 @@ gem 'thin'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'koala'
+gem 'acts_as_votable'
 
 group :development do
  gem 'sqlite3'

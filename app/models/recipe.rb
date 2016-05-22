@@ -6,6 +6,7 @@ class Recipe < ActiveRecord::Base
   has_many :recipe_tags
   has_many :tags, through: :recipe_tags
   belongs_to :category
+  acts_as_votable
 
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods

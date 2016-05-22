@@ -3,9 +3,13 @@
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
   <h2>Hello, <%= @user.name %>!</h2>
-
-  <h4>Your recipes</h4>
-  <% @user.recipes.each do |recipe| %>
-    <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
-  <% end %>
+  <div class="col-md-6">
+    <h4>Your recipes</h4>
+    <% @user.recipes.each do |recipe| %>
+      <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h4>Your Favorites</h4>
+  </div>
 </div>

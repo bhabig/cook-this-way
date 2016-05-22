@@ -94,4 +94,19 @@ class RecipesController < ApplicationController
     flash[:message] = "You have successfully made it your own!"
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
   end
+
+  post '/recipes/:id/:slug/like' do
+    @user = User.find_by_id(session[:user_id])
+    @recipe = Recipe.find_by_id(params[:id])
+    @recipe.liked_by @user
+    redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
+  end
+
+  post '/recipes/:id/:slug/unlike' do
+    @user = User.find_by_id(session[:user_id])
+    @recipe = Recipe.find_by_id(params[:id])
+    @recipe.unliked_by @user
+    redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
+  end
+
 end

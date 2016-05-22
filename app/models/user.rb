@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :recipes
+  acts_as_voter
 
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods

@@ -2,8 +2,21 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <h2><%= @recipe.name %></h2>
-  <h6>Posted by <%= @recipe.user.name %> in <%= @recipe.category.name.titleize %></h6>
+  <h2 class="recipe-header"><%= @recipe.name %></h2>
+    <% if !@user.liked? @recipe %>
+      <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/like" method="post">
+        <input id="hidden" type="hidden" name="_method" value="put">
+        <button class="btn-link like-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
+      </form>
+    <% else %>
+      <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/unlike" method="post">
+        <input id="hidden" type="hidden" name="_method" value="put">
+        <button class="btn-link unlike-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
+      </form>
+    <% end %>
+
+  <h6 class="clear"> Posted by <%= @recipe.user.name %> in <%= @recipe.category.name.titleize %></h6>
+
   <h6>Tags: <% @recipe.tags.each do |tag| %>
     <%= tag.name %>
   <% end %></h6>

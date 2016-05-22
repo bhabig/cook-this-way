@@ -16,8 +16,8 @@ th, td {
 }
 
 .title {
-  position: absolute;
-  top: 50%;
+  position: relative;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
   color: white;
@@ -46,4 +46,29 @@ a.category-links {
 .inactiveLink {
    pointer-events: none;
    cursor: default;
+}
+
+.recipe-header {
+  float: left;
+}
+
+.recipe-header-heart {
+  float: left;
+  margin-top: 17px;
+}
+
+.clear {
+  clear: both;
+}
+
+.like-heart, .like-heart:hover, .like-heart:focus {
+  text-decoration: none;
+  color: gray;
+  outline: 0;
+}
+
+.unlike-heart, .unlike-heart:hover, .unlike-heart:focus {
+  text-decoration: none;
+  color: red;
+  outline: 0;
 }
