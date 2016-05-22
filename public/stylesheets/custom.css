@@ -42,3 +42,8 @@ a.category-links {
   text-decoration: none;
   color: black;
 }
+
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
