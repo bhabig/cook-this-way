@@ -10,4 +10,8 @@ class Recipe < ActiveRecord::Base
 
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods
+
+  def self.search(search)
+    where("name like ?", "%#{search}%")
+  end
 end

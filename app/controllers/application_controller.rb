@@ -42,6 +42,25 @@ class ApplicationController < Sinatra::Base
     end
   end
 
+  get '/search' do
+    @user = User.find(session[:user_id])
+    erb :'/search/search'
+  end
+
+  get '/search/recipes' do
+    @user = User.find(session[:user_id])
+    @recipes = Recipe.all
+
+    if params[:search]
+      @recipes = []
+      params[:search].split(/\s*,\s*/).each { |item| @recipes << Recipe.search(item) }
+      @recipes.flatten!
+    else
+      @recipes = Recipe.all
+    end
+    erb :'/search/results'
+  end
+
   helpers do
     def logged_in?
       !!session[:user_id]
@@ -52,5 +71,6 @@ class ApplicationController < Sinatra::Base
     end
 
   end
+
 
 end
