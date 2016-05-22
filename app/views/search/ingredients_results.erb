@@ -1,0 +1,21 @@
+<div class="container">
+  <p><% if @ingredients.present? %>
+    <p>Here are the recipes containing one or more of the ingredient(s), <strong><%= params[:search] %></strong>, you entered.</p>
+    <% @recipes.each do |recipe| %>
+      <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+    <% end %>
+  <% else %>
+    <p>There are no recipes containing the ingredient(s) <strong><%= params[:search] %></strong>.</p>
+  <% end %></p>
+  <p><a href="/search">Back to Search</a></p>
+</div>
+
+<!--
+  Search through all the recipes
+  Find recipes that have the ingredient
+  Search through those recipes
+  Find those recipes that have the other ingredient
+  Rinse and repeat
+
+
+ -->

@@ -19,19 +19,19 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     register Sinatra::Flash
     set :session_secret, ENV['SESSION_KEY'] || 'CAbo7bFkcNVh7MEjXPK)[agfkvRJv'
-    set :raise_errors, false
-    set :show_exceptions, false
+    set :raise_errors, true
+    set :show_exceptions, true
   end
 
-  error do
-    status 404
-    erb :error
-  end
-
-  error Sinatra::NotFound do
-    status 404
-    erb :error
-  end
+  # error do
+  #   status 404
+  #   erb :error
+  # end
+  #
+  # error Sinatra::NotFound do
+  #   status 404
+  #   erb :error
+  # end
 
   get '/' do
     if !session[:user_id]
@@ -43,14 +43,17 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/search' do
-    @user = User.find(session[:user_id])
-    erb :'/search/search'
+    if !session[:user_id]
+      erb :'/search/search'
+    else
+      @user = User.find(session[:user_id])
+      erb :'/search/search'
+    end
   end
 
   get '/search/recipes' do
     @user = User.find(session[:user_id])
     @recipes = Recipe.all
-
     if params[:search]
       @recipes = []
       params[:search].split(/\s*,\s*/).each { |item| @recipes << Recipe.search(item) }
@@ -58,7 +61,28 @@ class ApplicationController < Sinatra::Base
     else
       @recipes = Recipe.all
     end
-    erb :'/search/results'
+    erb :'/search/recipes_results'
+  end
+
+  get '/search/ingredients' do
+    @user = User.find(session[:user_id])
+    @ingredients = Ingredient.all
+    @recipes = Recipe.all
+
+    if params[:search]
+      @ingredients = []
+      params[:search].split(/\s*,\s*/).each { |item| @ingredients << Ingredient.search(item) }
+      @ingredients.flatten!
+
+      @recipes = []
+      @ingredients.each { |item| @recipes << item.recipes }
+      @recipes.flatten!
+      @recipes = @recipes.uniq { |recipe| recipe.id }
+      @ingredients.flatten!
+    else
+      @ingredients = Ingredient.all
+    end
+    erb :'/search/ingredients_results'
   end
 
   helpers do

@@ -1,6 +1,16 @@
 <div class="container">
-<h3>Search by Recipe Name</h3>
-  <form action="/search/recipes", method="get">
-  <p><input type="text" name="search" size="40" placeholder="For example: chicken salad, pizza,"></p>
-  <p><input type="submit" name="submit"></p>
+  <div class="col-md-6">
+    <h3>Search by Recipe Name</h3>
+    <form action="/search/recipes", method="get">
+      <p>Separate search keywords with a comma. <br><input type="text" name="search" size="40" placeholder="For example: chicken salad, pizza, mojito"></p>
+      <p><input type="submit" name="submit"></p>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h3>Search by Ingredients</h3>
+    <form action="/search/ingredients", method="get">
+      <p>Separate search keywords with a comma. <br><input type="text" name="search" size="40" placeholder="For example: butter, bacon, oregano"></p>
+      <p><input type="submit" name="submit"></p>
+    </form>
+  </div>
 </div>
