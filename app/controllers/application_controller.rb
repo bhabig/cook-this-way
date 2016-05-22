@@ -4,9 +4,14 @@ require 'sinatra/activerecord'
 require 'sinatra/base'
 require 'sinatra/flash'
 require 'sinatra/redirect_with_flash'
+require 'will_paginate'
+require 'will_paginate/active_record'
+require 'will_paginate-bootstrap'
+require 'will_paginate/collection'
 
 
 class ApplicationController < Sinatra::Base
+  include WillPaginate::Sinatra::Helpers
 
   configure do
     set :public_folder, 'public'
@@ -14,7 +19,19 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     register Sinatra::Flash
     set :session_secret, ENV['SESSION_KEY'] || 'CAbo7bFkcNVh7MEjXPK)[agfkvRJv'
+    set :raise_errors, true
+    set :show_exceptions, true
   end
+
+  # error do
+  #   status 404
+  #   erb :error
+  # end
+  #
+  # error Sinatra::NotFound do
+  #   status 404
+  #   erb :error
+  # end
 
   get '/' do
     if !session[:user_id]

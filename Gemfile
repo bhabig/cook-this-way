@@ -12,6 +12,8 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'acts_as_votable'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 
 group :development do
  gem 'sqlite3'

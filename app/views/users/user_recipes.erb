@@ -1,0 +1,16 @@
+<div class="container">
+  <% if flash[:message] != nil %>
+    <span class="alert"><%= flash.now[:message] %></span>
+  <% end %>
+  <% if @user == @view_user %>
+    <h4>Your Recipes</h4>
+  <% else %>
+    <h4><%= @view_user.name %>'s Recipes</h4>
+  <% end %>
+  <p>
+  <% @view_user.recipes.each do |recipe| %>
+    
+    <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+  <% end %>
+</p>
+</div>

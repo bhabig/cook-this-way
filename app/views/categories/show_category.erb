@@ -1,8 +1,9 @@
 <div class="container">
   <h2><%= @category.name.titleize %></h2>
-  <% @category.recipes.each do |recipe| %>
+  <% @cat_page.each do |recipe| %>
     <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
   <% end %>
+  <%= will_paginate @cat_page, renderer: BootstrapPagination::Sinatra %>
   <br>
-  <p><i class="fa fa-arrow-left"></i> <a href="/categories">Back to Categories Page</a></p>
+  <p><a href="/categories">View All Categories</a></p>
 </div>

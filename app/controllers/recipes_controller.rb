@@ -12,6 +12,7 @@ class RecipesController < ApplicationController
       @user = User.find(session[:user_id])
     end
     @recipe = Recipe.find_by_id(params[:id])
+    @category = Category.find_by_name(@recipe.category.name)
     erb :'/recipes/show_recipe'
   end
 

@@ -32,7 +32,8 @@
             <% if @user %>
               <li><a href="/recipes/new">Add a Recipe</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="/account">Your Recipes</a></li>
+              <li><a href="/users/<%= @user.id %>/recipes">Your Recipes</a></li>
+              <li><a href="/users/<%= @user.id %>/favorites">Your Favorites</a></li>
             <% end %>
           </ul>
         </li>

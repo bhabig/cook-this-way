@@ -37,9 +37,10 @@
   </table>
   <h4>Instructions</h4>
   <p><%= @recipe.instructions %></p>
-  <% if @recipe.user_id == session[:user_id] %>
+  <p><% if @recipe.user_id == session[:user_id] %>
     <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/edit">Edit Your Recipe</a>
   <% else %>
     <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/makeit">Make It Your Own</a>
-  <% end %>
+  <% end %></p>
+  <p><a href="/categories/<%= @category.slug %>">View All <%= @category.slug.titleize %></a></p>
 </div>

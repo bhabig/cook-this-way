@@ -32,4 +32,27 @@ class UsersController < ApplicationController
     end
     erb :'/users/signup'
   end
+
+  get '/users/:id/recipes' do
+    @user = User.find(session[:user_id])
+    if !session[:user_id]
+      flash[:message] = "You must be signed in to view a user's recipes page."
+      erb :'/users/signup'
+    else
+      @view_user = User.find_by_id(params[:id])
+      erb :'/users/user_recipes'
+    end
+  end
+
+  get '/users/:id/favorites' do
+    @user = User.find(session[:user_id])
+    if !session[:user_id]
+      flash[:message] = "You must be signed in to view a user's recipes page."
+      erb :'/users/signup'
+    else
+      @view_user = User.find_by_id(params[:id])
+      erb :'/users/user_favorites'
+    end
+  end
+
 end
