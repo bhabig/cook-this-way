@@ -2,7 +2,9 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <p><img src="<%= @recipe.avatar.url %>"></p>
+  <% if @recipe.avatar.url %>
+    <p><img src="<%= @recipe.avatar.url %>"></p>
+  <% end %>
   <h2 class="recipe-header"><%= @recipe.name %></h2>
     <% if !@user.liked? @recipe %>
       <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/like" method="post">
@@ -24,6 +26,9 @@
   <h6>Tags: <% @recipe.tags.each do |tag| %>
     <%= tag.name %>
   <% end %></h6>
+
+  <a href="javascript:window.print()" class="print-hide-me">Print</a><br />
+
   <h4>Ingredients</h4>
   <table cellpadding="5">
     <tr>
@@ -46,7 +51,7 @@
   <% else %>
     <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/makeit">Make It Your Own</a>
   <% end %></p>
-  <p><a href="/categories/<%= @category.slug %>">View All <% if @category.slug == "entrees" %>
+  <p><a href="/categories/<%= @category.slug %>" class="print-hide-me">View All <% if @category.slug == "entrees" %>
     Entrées
   <% else %>
     <%= @category.slug.titleize %>
