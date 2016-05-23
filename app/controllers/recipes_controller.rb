@@ -35,6 +35,9 @@ class RecipesController < ApplicationController
     params["ingredient"].each do |ingredient|
       @recipe.ingredients << Ingredient.create(name: ingredient[:name], amount: ingredient[:amount], measurement_type: ingredient[:measurement_type])
     end
+    @recipe.avatar = params[:file]
+    @recipe.save!
+
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
   end
 
@@ -64,6 +67,8 @@ class RecipesController < ApplicationController
     params["ingredient"].each do |ingredient|
       @recipe.ingredients << Ingredient.create(name: ingredient[:name], amount: ingredient[:amount], measurement_type: ingredient[:measurement_type])
     end
+    @recipe.avatar = params[:file]
+    @recipe.save!
     flash[:message] = "You have successfully editted your recipe."
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
   end
@@ -92,6 +97,8 @@ class RecipesController < ApplicationController
     params["ingredient"].each do |ingredient|
       @recipe.ingredients << Ingredient.create(name: ingredient[:name], amount: ingredient[:amount], measurement_type: ingredient[:measurement_type])
     end
+    @recipe.avatar = params[:file]
+    @recipe.save!
     flash[:message] = "You have successfully made it your own!"
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
   end

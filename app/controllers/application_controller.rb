@@ -20,11 +20,11 @@ class ApplicationController < Sinatra::Base
     register Sinatra::Flash
     set :session_secret, ENV['SESSION_KEY'] || 'CAbo7bFkcNVh7MEjXPK)[agfkvRJv'
      if ENV['RACK_ENV'] == 'development'
-      set :raise_errors, true # False when Heroku
-      set :show_exceptions, true # False when Heroku
+      set :raise_errors, true
+      set :show_exceptions, true
     else
-      set :raise_errors, false # False when Heroku
-      set :show_exceptions, false # False when Heroku
+      set :raise_errors, false
+      set :show_exceptions, false
     end
   end
   if ENV['RACK_ENV'] != 'development'
@@ -89,23 +89,6 @@ class ApplicationController < Sinatra::Base
       @ingredients = Ingredient.all
     end
     erb :'/search/ingredients_results'
-  end
-
-  get '/uploadtest' do
-    @recipe = Recipe.find_by_id(3)
-    erb :'/uploads/index'
-  end
-
-  post '/uploadtest' do
-    @recipe = Recipe.find_by_id(3)
-    @recipe.avatar = params[:file]
-    @recipe.save!
-    redirect to "/uploadtest/view"
-  end
-
-  get '/uploadtest/view' do
-    @recipe = Recipe.find_by_id(3)
-    erb :'/uploads/view'
   end
 
   helpers do

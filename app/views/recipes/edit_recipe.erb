@@ -3,9 +3,11 @@
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
   <h2>Edit Your Recipe</h2>
-  <form action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>" method="post">
+  <form action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>" method="post" enctype="multipart/form-data">
     <input id="hidden" type="hidden" name="_method" value="patch">
     <p>Name: <input type="text" name="recipe[name]" id="recipe_name" value="<%= @recipe.name %>" required></p>
+    <p><img src="<%= @recipe.avatar.url %>"></p>
+    <p>Add New Photo: <input type="file" name="file" value="<%= @recipe.avatar %>"/></p>
     <p>Category (select one): <br>
       <% Category.all.each do |category| %>
       <input type="radio" name="recipe[category_id]" value="<%= category.id %>" id="category_<%= category.id %>" <%= 'checked' if @recipe.category == category %> required> <%= category.name %>

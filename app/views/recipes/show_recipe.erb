@@ -2,6 +2,7 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
+  <p><img src="<%= @recipe.avatar.url %>"></p>
   <h2 class="recipe-header"><%= @recipe.name %></h2>
     <% if !@user.liked? @recipe %>
       <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/like" method="post">
@@ -14,7 +15,6 @@
         <button class="btn-link unlike-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
       </form>
     <% end %>
-
   <h6 class="clear"> Posted by <a href="/users/<%= @recipe.user.id %>/recipes"><%= @recipe.user.name %></a> in <a href="/categories/<%= @recipe.category.slug %>"><% if @recipe.category.name == "entrees" %>
     Entrées
   <% else %>
