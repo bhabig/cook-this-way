@@ -32,8 +32,8 @@ CarrierWave.configure do |config|
     provider:              'AWS',                     # required
     aws_access_key_id:     ENV['AWS_S3_ACCESS_KEY'],  # required
     aws_secret_access_key: ENV['AWS_S3_KEY_ID'],      # required
-    region:                ENV['AWS_S3_REGION'],      # optional, defaults to 'us-east-1'
+    region:                ENV['AWS_S3_REGION']      # optional, defaults to 'us-east-1'
   }
   config.fog_directory  = ENV['AWS_S3_BUCKET']        # required
-  config.fog_public     = false                       # optional, defaults to true
+  config.fog_public     = true                       # optional, defaults to true
   end
