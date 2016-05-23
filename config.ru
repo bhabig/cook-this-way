@@ -1,4 +1,5 @@
-
+require 'dotenv' if ENV['RACK_ENV'] == 'development' # Breaks Heroku
+Dotenv.load if ENV['RACK_ENV'] == 'development' # Breaks Heroku
 
 require './config/environment'
 
