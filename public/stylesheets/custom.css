@@ -9,6 +9,7 @@ th, td {
   ), url('/images/header-opt.jpg') center no-repeat;
   height: 400px;
   margin-top: -20px;
+  margin-bottom: 20px;
 }
 
 .category-box {

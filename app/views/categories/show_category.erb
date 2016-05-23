@@ -1,7 +1,13 @@
 <div class="container">
-  <h2><%= @category.name.titleize %></h2>
+  <h2>
+    <% if @category.name == "entrees" %>
+      Entrées
+    <% else %>
+      <%= @category.name.titleize %>
+    <% end %></h2>
   <% @cat_page.each do |recipe| %>
     <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+
   <% end %>
   <%= will_paginate @cat_page, renderer: BootstrapPagination::Sinatra %>
   <br>

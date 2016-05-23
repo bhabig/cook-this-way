@@ -15,7 +15,11 @@
       </form>
     <% end %>
 
-  <h6 class="clear"> Posted by <%= @recipe.user.name %> in <%= @recipe.category.name.titleize %></h6>
+  <h6 class="clear"> Posted by <a href="/users/<%= @recipe.user.id %>/recipes"><%= @recipe.user.name %></a> in <a href="/categories/<%= @recipe.category.slug %>"><% if @recipe.category.name == "entrees" %>
+    Entrées
+  <% else %>
+    <%= @recipe.category.name.titleize %>
+  <% end %></a></h6>
 
   <h6>Tags: <% @recipe.tags.each do |tag| %>
     <%= tag.name %>
@@ -42,5 +46,9 @@
   <% else %>
     <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/makeit">Make It Your Own</a>
   <% end %></p>
-  <p><a href="/categories/<%= @category.slug %>">View All <%= @category.slug.titleize %></a></p>
+  <p><a href="/categories/<%= @category.slug %>">View All <% if @category.slug == "entrees" %>
+    Entrées
+  <% else %>
+    <%= @category.slug.titleize %>
+  <% end %></a></p>
 </div>

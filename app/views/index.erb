@@ -8,11 +8,6 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <div class="content">
-    <% Category.all.each do |category| %>
-      <div class="col-md-4 category-box">
-        <a class="category-links" href="/categories/<%= category.slug %>"><%= category.name.titleize %></a><a href="/categories/<%= category.slug %>"><img src="/images/header-opt.jpg" class="img-responsive"></a>
-      </div>
-    <% end %>
-  </div>
+  <%= erb(:'categories/_categories', :layout => false) %>
+
 </div>
