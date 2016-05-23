@@ -8,6 +8,9 @@ class Recipe < ActiveRecord::Base
   belongs_to :category
   acts_as_votable
 
+  require 'carrierwave/orm/activerecord'
+  mount_uploader :avatar, MyUploader
+
   extend Slugifiable::ClassMethods
   include Slugifiable::InstanceMethods
 

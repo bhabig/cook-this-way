@@ -19,19 +19,19 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     register Sinatra::Flash
     set :session_secret, ENV['SESSION_KEY'] || 'CAbo7bFkcNVh7MEjXPK)[agfkvRJv'
-    set :raise_errors, true
-    set :show_exceptions, true
+    set :raise_errors, false # False when Heroku
+    set :show_exceptions, false # False when Heroku
   end
 
-  # error do
-  #   status 404
-  #   erb :error
-  # end
-  #
-  # error Sinatra::NotFound do
-  #   status 404
-  #   erb :error
-  # end
+  error do
+    status 404
+    erb :error
+  end
+
+  error Sinatra::NotFound do
+    status 404
+    erb :error
+  end
 
   get '/' do
     if !session[:user_id]
@@ -83,6 +83,23 @@ class ApplicationController < Sinatra::Base
       @ingredients = Ingredient.all
     end
     erb :'/search/ingredients_results'
+  end
+
+  get '/uploadtest' do
+    @recipe = Recipe.find_by_id(3)
+    erb :'/uploads/index'
+  end
+
+  post '/uploadtest' do
+    @recipe = Recipe.find_by_id(3)
+    @recipe.avatar = params[:file]
+    @recipe.save!
+    redirect to "/uploadtest/view"
+  end
+
+  get '/uploadtest/view' do
+    @recipe = Recipe.find_by_id(3)
+    erb :'/uploads/view'
   end
 
   helpers do
