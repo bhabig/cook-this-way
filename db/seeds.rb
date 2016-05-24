@@ -34,7 +34,7 @@ end
   instructions = Faker::Hipster.paragraph(3) + "\n" + Faker::Hipster.paragraph(3) + "\n" + Faker::Hipster.paragraph(3) + "\n" + Faker::Hipster.paragraph(3)
   name = Faker::Beer.hop + " " + Faker::Hacker.adjective + " " + Faker::Team.creature
   recipe = Recipe.create(name: name, instructions: instructions, user_id: Faker::Number.between(1, 6), category_id: Faker::Number.between(1, 6))
-  recipe.avatar = File.open("public/images/missing.jpg")
+  recipe.avatar = File.new(ApplicationController.public_folder + "/images/missing.jpg")
   recipe.save!
 
   5.times do
