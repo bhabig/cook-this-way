@@ -106,3 +106,7 @@ a.category-links {
 .recipe-select-form {
   width: 120px;
 }
+
+.alert {
+  background: #D9EDF7;
+}
