@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
       erb :'recipes/create_recipe'
     else
       flash[:message] = "You must be signed in to add a recipe"
-      redirect to '/signup'
+      redirect to
     end
   end
 
@@ -34,11 +34,8 @@ class RecipesController < ApplicationController
     end
     if params[:file]
       @recipe.avatar = params[:file]
-    else
-      @recipe.avatar = File.open(ApplicationController.public_folder + "/images/missing.jpg")
     end
     @recipe.save!
-
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
   end
 
@@ -46,7 +43,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by_id(params[:id])
     if !session[:user_id]
       flash[:message] = "You must be signed in to edit a recipe."
-      redirect to '/signup'
+      erb :'users/signup'
     end
     @user = User.find_by_id(session[:user_id])
     if @user == @recipe.user
@@ -67,7 +64,7 @@ class RecipesController < ApplicationController
     if params[:file]
       @recipe.avatar = params[:file]
     else
-      @recipe.avatar = File.open(ApplicationController.public_folder + "/images/missing.jpg")
+      @recipe.remove_avatar!
     end
     @recipe.save!
     flash[:message] = "You have successfully editted your recipe."
@@ -78,7 +75,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by_id(params[:id])
     if !session[:user_id]
       flash[:message] = "You must be signed in to make a recipe your own."
-      redirect to '/signup'
+      redirect to "/users/signup"
     end
     @user = User.find_by_id(session[:user_id])
     if @user == @recipe.user
@@ -98,7 +95,7 @@ class RecipesController < ApplicationController
     if params[:file]
       @recipe.avatar = params[:file]
     else
-      @recipe.avatar = File.open(ApplicationController.public_folder + "/images/missing.jpg")
+      @recipe.remove_avatar!
     end
     @recipe.save!
     flash[:message] = "You have successfully made it your own!"

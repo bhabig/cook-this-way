@@ -9,7 +9,7 @@
     <% @user.recipes.each do |recipe| %>
     <div class="col-md-4 recipe-thumbs">
       <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
-      <img src="<%= recipe.avatar.thumb.url %>" class="img-responsivecenter-block"></p>
+      <img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
       <p class="recipe-text"><%= recipe.name.titleize %></a></p>
       </div>
     <% end %>
@@ -21,7 +21,7 @@
     <div class="col-md-4 recipe-thumbs">
       <% @recipe = Recipe.find_by_name(item.name) %>
       <p><a href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>" class="recipe-links">
-      <img src="<%= @recipe.avatar.thumb.url %>" class="img-responsivecenter-block"></p>
+      <img src="<%= @recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
       <p class="recipe-text"><%= item.name.titleize %></a></p>
       </div>
     <% end %>

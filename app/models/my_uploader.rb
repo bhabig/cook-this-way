@@ -28,6 +28,10 @@ class MyUploader < CarrierWave::Uploader::Base
     "#{secure_token}.#{file.extension}" if original_filename.present?
   end
 
+  def default_url(*args)
+    'https://s3-us-west-2.amazonaws.com/ctw-kbjwgqjqfzubu/public/images/missing.jpg'
+  end
+
   protected
   def secure_token
     var = :"@#{mounted_as}_secure_token"

@@ -22,27 +22,40 @@
           <% end %>
         <% end %>
       </div>
-      <% i = 1 %>
-      <% @recipe.ingredients.each do |ingredient| %>
-        <div id="ingredient_item_<%= i %>">
-          <hr>
-          <div class="form-group">
-            <strong>Ingredient Name:</strong> <input type="text" name="ingredient[][name]" id="ingredient_name_<%= i %>" value="<%= ingredient.name.titleize %>" required>
+      <% if @recipe.ingredients.count > 0 %>
+        <% i = 1 %>
+        <% @recipe.ingredients.each do |ingredient| %>
+          <div id="ingredient_item_<%= i %>">
+            <hr>
+            <div class="form-group">
+              <strong>Ingredient Name:</strong> <input type="text" name="ingredient[][name]" id="ingredient_name_<%= i %>" value="<%= ingredient.name.titleize %>" required>
+            </div>
+            <div class="form-group">
+              <strong>Ingredient Amount:</strong> <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_<%= i %>" value="<%= ingredient.amount %>" required></div>
+            <div class="form-group">
+              <strong>Ingredient Measurement:</strong> <input type="text" name="ingredient[][measurement_type]" size="33" value="<%= ingredient.measurement_type.titleize %>" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_<%= i %>" required> <br><button class="btn btn-danger btn-xs" onclick="removeDiv('ingredient_item_<%= i %>');">Delete Ingredient</button>
+            </div>
           </div>
-          <div class="form-group">
-            <strong>Ingredient Amount:</strong> <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_<%= i %>" value="<%= ingredient.amount %>" required></div>
-          <div class="form-group">
-            <strong>Ingredient Measurement:</strong> <input type="text" name="ingredient[][measurement_type]" size="33" value="<%= ingredient.measurement_type.titleize %>" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_<%= i %>" required> <br><button class="btn btn-danger btn-xs" onclick="removeDiv('ingredient_item_<%= i %>');">Delete Ingredient</button>
-          </div>
+          <% i += 1 %>
+        <% end %>
+      <% else %>
+        <hr>
+        <div class="form-group">
+          <strong>Ingredient Name:</strong> <input type="text" name="ingredient[][name]" id="ingredient_name_1" required>
         </div>
-        <% i += 1 %>
+        <div class="form-group">
+          <strong>Ingredient Amount:</strong> <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_1" required>
+        </div>
+        <div class="form-group">
+          <strong>Ingredient Measurement:</strong> <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_1" required>
+        </div>
       <% end %>
       <div class="form-group" id="new_ingredient"><!-- receives new ingredient forms --></div>
       <div class="form-group"><input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" class="btn btn-default" /> <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Added Ingredient" class="btn btn-default" /></div>
       <hr>
       <div class="form-group">
         <strong>Instructions:</strong><br />
-        <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" required>
+        <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" wrap="hard" required>
           <%= @recipe.instructions %>
         </textarea>
       </div>
