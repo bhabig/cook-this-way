@@ -1,6 +1,6 @@
 <div class="container">
   <% if flash[:message] != nil %>
-    <span class="alert"><%= flash.now[:message] %></span>
+    <div class="alert"><%= flash.now[:message] %></div>
   <% end %>
   <h2>Hello, <%= @user.name %>!</h2>
   <div class="col-md-12">

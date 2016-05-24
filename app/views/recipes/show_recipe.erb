@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-md-8">
     <% if flash[:message] != nil %>
-      <span class="alert"><%= flash.now[:message] %></span>
+      <div class="alert"><%= flash.now[:message] %></div>
     <% end %>
     <% if @recipe.avatar.url %>
       <p><img src="<%= @recipe.avatar.url %>" class="img-responsive"></p>

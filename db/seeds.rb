@@ -6,7 +6,7 @@ Category.create(name: 'entrees')
 Category.create(name: 'desserts')
 Category.create(name: 'beverages')
 
-#
+
 # # Create users
 # 5.times do
 #   first_name = Faker::Name.first_name
@@ -21,7 +21,71 @@ Category.create(name: 'beverages')
 #   )
 # end
 
-
+# Heroku users
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Prince Thor",
+  email: Faker::Internet.safe_email("mighty.thor"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Steve Rogers",
+  email: Faker::Internet.safe_email("steve.rogers"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Tony Stark",
+  email: Faker::Internet.safe_email("tony.stark"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Bruce Banner",
+  email: Faker::Internet.safe_email("bruce.banner"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Natasha Romanoff",
+  email: Faker::Internet.safe_email("natasha.romanoff"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Clint Barton",
+  email: Faker::Internet.safe_email("clint.barton"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Nick Fury",
+  email: Faker::Internet.safe_email("nick.fury"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Maria Hill",
+  email: Faker::Internet.safe_email("maria.hill"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
 # Create ingredients
 200.times do
 
@@ -33,7 +97,7 @@ end
 50.times do
   instructions = Faker::Hipster.paragraphs.join("\n")
   name = Faker::Beer.hop + " " + Faker::Hacker.adjective + " " + Faker::Team.creature
-  recipe = Recipe.create(name: name, instructions: instructions, user_id: 1, category_id: Faker::Number.between(1, 6))
+  recipe = Recipe.create(name: name, instructions: instructions, user_id: Faker::Number.between(1, 9), category_id: Faker::Number.between(1, 6))
   recipe.save!
 
   5.times do

@@ -1,7 +1,7 @@
 <div class="container">
   <h2>List of all recipes</h2>
   <% if flash[:message] != nil %>
-    <span class="alert"><%= flash.now[:message] %></span>
+    <div class="alert"><%= flash.now[:message] %></div>
   <% end %>
 
   <% Recipe.all.each do |recipe| %>
