@@ -86,6 +86,46 @@ User.create(
   oauth_token: Faker::Lorem.characters(30),
   oauth_expires_at: Faker::Time.forward(30, :morning)
 )
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Phil Coulson",
+  email: Faker::Internet.safe_email("phil.coulson"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Pepper Potts",
+  email: Faker::Internet.safe_email("pepper.potts"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Wanda Maximoff",
+  email: Faker::Internet.safe_email("wanda.maximoff"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "James Rhodes",
+  email: Faker::Internet.safe_email("james.rhodes"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
+User.create(
+  provider: "facebook",
+  uid: Faker::Number.between(100000, 1000000),
+  name: "Sam Wilson",
+  email: Faker::Internet.safe_email("sam.wilson"),
+  oauth_token: Faker::Lorem.characters(30),
+  oauth_expires_at: Faker::Time.forward(30, :morning)
+)
 # Create ingredients
 200.times do
 
@@ -94,10 +134,11 @@ end
 
 
 # Create Recipes
+user_ids = [1,3,4,5,6,7,8,9,10,11,12,13,14,15]
 50.times do
   instructions = Faker::Hipster.paragraphs.join("\n")
   name = Faker::Beer.hop + " " + Faker::Hacker.adjective + " " + Faker::Team.creature
-  recipe = Recipe.create(name: name, instructions: instructions, user_id: Faker::Number.between(1, 9), category_id: Faker::Number.between(1, 6))
+  recipe = Recipe.create(name: name, instructions: instructions, user_id: user_ids.sample, category_id: Faker::Number.between(1, 6))
   recipe.save!
 
   5.times do
