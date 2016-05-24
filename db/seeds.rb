@@ -6,7 +6,7 @@ Category.create(name: 'entrees')
 Category.create(name: 'desserts')
 Category.create(name: 'beverages')
 
-# 
+#
 # # Create users
 # 5.times do
 #   first_name = Faker::Name.first_name
@@ -33,7 +33,7 @@ end
 50.times do
   instructions = Faker::Hipster.paragraphs.join("\n")
   name = Faker::Beer.hop + " " + Faker::Hacker.adjective + " " + Faker::Team.creature
-  recipe = Recipe.create(name: name, instructions: instructions, user_id: Faker::Number.between(1, 6), category_id: Faker::Number.between(1, 6))
+  recipe = Recipe.create(name: name, instructions: instructions, user_id: 1, category_id: Faker::Number.between(1, 6))
   recipe.save!
 
   5.times do
