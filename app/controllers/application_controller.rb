@@ -64,8 +64,9 @@ class ApplicationController < Sinatra::Base
     @recipes = Recipe.all
     if params[:search]
       @recipes = []
-      params[:search].split(/\s*,\s*/).each { |item| @recipes << Recipe.search(item) }
+      params[:search].downcase.split(/\s*,\s*/).each { |item| @recipes << Recipe.search(item) }
       @recipes.flatten!
+      @recipes_counter = params[:search].downcase.split(/\s*,\s*/)
     else
       @recipes = Recipe.all
     end
@@ -80,11 +81,15 @@ class ApplicationController < Sinatra::Base
     @recipes = Recipe.all
     if params[:search]
       @ingredients = []
-      params[:search].split(/\s*,\s*/).each { |item| @ingredients << Ingredient.search(item) }
+      params[:search].downcase.split(/\s*,\s*/).each { |ingredient| @ingredients << Ingredient.search(ingredient) }
       @ingredients.flatten!
-      @ingredients_counter = @ingredients.uniq { |ingredient| ingredient.name }
+      if @ingredients.count > 0
+        @ingredients_counter = @ingredients.uniq { |ingredient| ingredient.name }
+      else
+        @ingredients_counter = params[:search].downcase.split(/\s*,\s*/)
+      end
       @recipes = []
-      @ingredients.each { |item| @recipes << item.recipes }
+      @ingredients.each { |ingredient| @recipes << ingredient.recipes }
       @recipes.flatten!
       @recipes = @recipes.uniq { |recipe| recipe.id }
       @ingredients.flatten!

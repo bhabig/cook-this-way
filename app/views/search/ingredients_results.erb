@@ -1,23 +1,27 @@
 <div class="container">
   <div class="col-md-12">
-    <p><% if @ingredients.present? %>
-        <% if @ingredients_counter.count > 1 %>
-          <p>Here are the recipes containing either of the ingredients <strong><%= params[:search] %></strong>.</p>
-        <% else %>
-          <p>Here are the recipes containing the ingredient <strong><%= params[:search] %></strong>.</p>
-        <% end %>
-      <% @recipes.each do |recipe| %>
+    <% if @ingredients.present? %>
+      <% if @ingredients_counter.count > 1 %>
+        <p>Here are the recipes containing either of the ingredients <strong><%= params[:search].downcase %></strong>.</p>
+      <% else %>
+        <p>Here are the recipes containing the ingredient <strong><%= params[:search].downcase %></strong>.</p>
+      <% end %>
+    <% @recipes.each do |recipe| %>
       <div class="col-md-4 recipe-thumbs">
         <a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
         <img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block">
-          <p class="recipe-text"><%= recipe.name %></a></p>
+          <p class="recipe-text"><%= recipe.name.titleize %></a></p>
         </div>
       <% end %>
     <% else %>
-      <div class="col-md-4 recipe-thumbs">
-        <p>There are no recipes containing the ingredient(s) <strong><%= params[:search] %></strong>.</p>
+      <div class="col-md-12">
+        <% if @ingredients_counter.count > 1 %>
+          <p>There are no recipes containing either of the ingredients <strong><%= params[:search].downcase %></strong>.</p>
+        <% else %>
+          <p>There are no recipes containing the ingredient <strong><%= params[:search].downcase %></strong>.</p>
+        <% end %>
       </div>
-    <% end %></p>
+    <% end %>
   </div>
   <div class="col-md-12">
     <p><a href="/search">Back to Search</a></p>

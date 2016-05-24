@@ -1,19 +1,27 @@
 <div class="container">
   <div class="col-md-12">
-  <% if @recipes.present? %>
-    <p>Here are the recipes containing the term(s) <strong><%= params[:search] %></strong>.</p>
-    <% @recipes.each do |recipe| %>
-      <div class="col-md-4 recipe-thumbs">
-        <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
-        <img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
-        <p class="recipe-text"><%= recipe.name.titleize %></a></p>
+    <% if @recipes.present? %>
+      <% if @recipes_counter.count > 1 %>
+        <p>Here are the recipes containing either of the terms <strong><%= params[:search].downcase %></strong>.</p>
+      <% else %>
+        <p>Here are the recipes containing the term <strong><%= params[:search].downcase %></strong>.</p>
+      <% end %>
+      <% @recipes.each do |recipe| %>
+        <div class="col-md-4 recipe-thumbs">
+          <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
+          <img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
+          <p class="recipe-text"><%= recipe.name.titleize %></a></p>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-md-12">
+        <% if @recipes_counter.count > 1 %>
+          <p>There are no recipes containing either of the terms <strong><%= params[:search].downcase %></strong>.</p>
+        <% else %>
+          <p>There are no recipes containing the term <strong><%= params[:search].downcase %></strong>.</p>
+        <% end %>
       </div>
     <% end %>
-  <% else %>
-    <div class="col-md-12">
-      <p>There are no recipes containing the term(s) <strong><%= params[:search] %></strong>.</p>
-    </div>
-  <% end %>
   </div>
   <div class="col-md-12">
     <p><a href="/search">Back to Search</a></p>

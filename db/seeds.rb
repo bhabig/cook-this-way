@@ -129,7 +129,7 @@ User.create(
 # Create ingredients
 200.times do
 
-  ingredient = Ingredient.create(name: Faker::Hipster.word, measurement_type: Faker::Hacker.noun, amount: Faker::Number.between(1, 4))
+  ingredient = Ingredient.create(name: Faker::Hipster.word.downcase, measurement_type: Faker::Hacker.noun.downcase, amount: Faker::Number.between(1, 4))
 end
 
 
@@ -138,7 +138,7 @@ user_ids = [1,3,4,5,6,7,8,9,10,11,12,13,14,15]
 50.times do
   instructions = Faker::Hipster.paragraphs.join("\n")
   name = Faker::Beer.hop + " " + Faker::Hacker.adjective + " " + Faker::Team.creature
-  recipe = Recipe.create(name: name, instructions: instructions, user_id: user_ids.sample, category_id: Faker::Number.between(1, 6))
+  recipe = Recipe.create(name: name.downcase, instructions: instructions, user_id: user_ids.sample, category_id: Faker::Number.between(1, 6))
   recipe.save!
 
   5.times do
