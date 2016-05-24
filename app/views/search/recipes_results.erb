@@ -1,11 +1,21 @@
 <div class="container">
-  <p><% if @recipes.present? %>
+  <div class="col-md-12">
+  <% if @recipes.present? %>
     <p>Here are the recipes containing the term(s) <strong><%= params[:search] %></strong>.</p>
     <% @recipes.each do |recipe| %>
-      <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+      <div class="col-md-4 recipe-thumbs">
+        <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
+        <img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
+        <p class="recipe-text"><%= recipe.name.titleize %></a></p>
+      </div>
     <% end %>
   <% else %>
-    <p>There are no recipes containing the term(s) <strong><%= params[:search] %></strong>.</p>
-  <% end %></p>
-  <p><a href="/search">Back to Search</a></p>
+    <div class="col-md-12">
+      <p>There are no recipes containing the term(s) <strong><%= params[:search] %></strong>.</p>
+    </div>
+  <% end %>
+  </div>
+  <div class="col-md-12">
+    <p><a href="/search">Back to Search</a></p>
+  </div>
 </div>

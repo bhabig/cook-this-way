@@ -2,15 +2,20 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <% if @user == @view_user %>
-    <h4>Your Recipes</h4>
-  <% else %>
-    <h4><%= @view_user.name %>'s Recipes</h4>
-  <% end %>
-  <p>
-  <% @view_user.recipes.each do |recipe| %>
-    
-    <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
-  <% end %>
-</p>
+  <div class="col-md-12">
+    <% if @user == @view_user %>
+      <h3 class="recipe-h3">Your Recipes</h3>
+    <% else %>
+      <h3 class="recipe-h3"><%= @view_user.name %>'s Recipes</h3>
+    <% end %>
+    <hr class="recipe-hr">
+    <p>
+      <% @view_user.recipes.each do |recipe| %>
+        <div class="col-md-4 recipe-thumbs">
+          <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links"><img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
+          <p class="recipe-text"><%= recipe.name.titleize %></a></p>
+        </div>
+      <% end %>
+    </p>
+  </div>
 </div>

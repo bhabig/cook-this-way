@@ -3,17 +3,27 @@
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
   <h2>Hello, <%= @user.name %>!</h2>
-  <div class="col-md-4">
-    <h4>Your recipes</h4>
+  <div class="col-md-12">
+    <h3 class="recipe-h3">Your recipes</h3>
+    <hr class="recipe-hr">
     <% @user.recipes.each do |recipe| %>
-      <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
+    <div class="col-md-4 recipe-thumbs">
+      <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
+      <img src="<%= recipe.avatar.thumb.url %>" class="img-responsivecenter-block"></p>
+      <p class="recipe-text"><%= recipe.name.titleize %></a></p>
+      </div>
     <% end %>
   </div>
-  <div class="col-md-4">
-    <h4>Your Favorites</h4>
+  <div class="col-md-12">
+    <h3 class="recipe-h3">Your Favorites</h3>
+    <hr class="recipe-hr">
     <% @user.find_voted_items.each do |item| %>
+    <div class="col-md-4 recipe-thumbs">
       <% @recipe = Recipe.find_by_name(item.name) %>
-      <li><a href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>"><%= item.name %></a></li>
+      <p><a href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>" class="recipe-links">
+      <img src="<%= @recipe.avatar.thumb.url %>" class="img-responsivecenter-block"></p>
+      <p class="recipe-text"><%= item.name.titleize %></a></p>
+      </div>
     <% end %>
   </div>
 </div>

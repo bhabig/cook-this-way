@@ -22,20 +22,21 @@ class RecipesController < ApplicationController
       erb :'recipes/create_recipe'
     else
       flash[:message] = "You must be signed in to add a recipe"
-      erb :'users/signup'
+      redirect to '/signup'
     end
   end
 
   post '/recipes' do
     user = User.find_by_id(session[:user_id])
     @recipe = Recipe.create(name: params["recipe"]["name"], user_id: session[:user_id], instructions: params["recipe"]["instructions"], category_id: params["recipe"]["category_id"])
-    params["recipe"]["tag_ids"].each do |tag|
-      @recipe.tags << Tag.find_by_id(tag)
-    end
     params["ingredient"].each do |ingredient|
       @recipe.ingredients << Ingredient.create(name: ingredient[:name], amount: ingredient[:amount], measurement_type: ingredient[:measurement_type])
     end
-    @recipe.avatar = params[:file]
+    if params[:file]
+      @recipe.avatar = params[:file]
+    else
+      @recipe.avatar = File.open(ApplicationController.public_folder + "/images/missing.jpg")
+    end
     @recipe.save!
 
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
@@ -45,7 +46,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by_id(params[:id])
     if !session[:user_id]
       flash[:message] = "You must be signed in to edit a recipe."
-      redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
+      redirect to '/signup'
     end
     @user = User.find_by_id(session[:user_id])
     if @user == @recipe.user
@@ -59,15 +60,15 @@ class RecipesController < ApplicationController
   post '/recipes/:id/:slug' do
     @recipe = Recipe.find_by_id(params[:id])
     @recipe.update(params[:recipe])
-    @recipe.tags.clear
-    params["recipe"]["tag_ids"].each do |tag|
-      @recipe.tags << Tag.find_by_id(tag)
-    end
     @recipe.ingredients.clear
     params["ingredient"].each do |ingredient|
       @recipe.ingredients << Ingredient.create(name: ingredient[:name], amount: ingredient[:amount], measurement_type: ingredient[:measurement_type])
     end
-    @recipe.avatar = params[:file]
+    if params[:file]
+      @recipe.avatar = params[:file]
+    else
+      @recipe.avatar = File.open(ApplicationController.public_folder + "/images/missing.jpg")
+    end
     @recipe.save!
     flash[:message] = "You have successfully editted your recipe."
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
@@ -77,7 +78,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by_id(params[:id])
     if !session[:user_id]
       flash[:message] = "You must be signed in to make a recipe your own."
-      redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
+      redirect to '/signup'
     end
     @user = User.find_by_id(session[:user_id])
     if @user == @recipe.user
@@ -91,13 +92,14 @@ class RecipesController < ApplicationController
   post '/recipes/makeit' do
     user = User.find_by_id(session[:user_id])
     @recipe = Recipe.create(name: params["recipe"]["name"], user_id: session[:user_id], instructions: params["recipe"]["instructions"], category_id: params["recipe"]["category_id"])
-    params["recipe"]["tag_ids"].each do |tag|
-      @recipe.tags << Tag.find_by_id(tag)
-    end
     params["ingredient"].each do |ingredient|
       @recipe.ingredients << Ingredient.create(name: ingredient[:name], amount: ingredient[:amount], measurement_type: ingredient[:measurement_type])
     end
-    @recipe.avatar = params[:file]
+    if params[:file]
+      @recipe.avatar = params[:file]
+    else
+      @recipe.avatar = File.open(ApplicationController.public_folder + "/images/missing.jpg")
+    end
     @recipe.save!
     flash[:message] = "You have successfully made it your own!"
     redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"

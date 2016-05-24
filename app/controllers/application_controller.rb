@@ -8,7 +8,7 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 require 'will_paginate-bootstrap'
 require 'will_paginate/collection'
-
+require 'active_support/inflector'
 
 class ApplicationController < Sinatra::Base
   include WillPaginate::Sinatra::Helpers
@@ -58,7 +58,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/search/recipes' do
-    @user = User.find(session[:user_id])
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
     @recipes = Recipe.all
     if params[:search]
       @recipes = []
@@ -71,15 +73,16 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/search/ingredients' do
-    @user = User.find(session[:user_id])
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
     @ingredients = Ingredient.all
     @recipes = Recipe.all
-
     if params[:search]
       @ingredients = []
       params[:search].split(/\s*,\s*/).each { |item| @ingredients << Ingredient.search(item) }
       @ingredients.flatten!
-
+      @ingredients_counter = @ingredients.uniq { |ingredient| ingredient.name }
       @recipes = []
       @ingredients.each { |item| @recipes << item.recipes }
       @recipes.flatten!

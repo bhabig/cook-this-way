@@ -1,4 +1,3 @@
-//** removes alerts after 3 seconds */
 window.setTimeout(function() {
     $(".alert").remove()
 }, 3000);
@@ -8,7 +7,7 @@ var i = 1;
 
 function add_fields() {
     var newparagraph = document.createElement('p');
-    newparagraph.innerHTML = 'Name: <input type="text" name="ingredient[][name]" id="ingredient_name_A' + i + '" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_A' + i + '" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_A' + i + '" required>';
+    newparagraph.innerHTML = '<hr><div class="form-group"><strong>Ingredient Name:</strong> <input type="text" name="ingredient[][name]" id="ingredient_name_A' + i + '" required></div><div class="form-group"><strong>Ingredient Amount:</strong> <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_A' + i + '" required></div><div class="form-group"><strong>Ingredient Measurement:</strong> <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_A' + i + '" required></div>';
     document.getElementById('new_ingredient').appendChild(newparagraph);
     i++
 }
@@ -21,12 +20,4 @@ function remove_fields() {
 
 function removeDiv(divId) {
    $("#"+divId).remove();
-}
-
-function togglePrintPreview()
-{
-     var currCSS = document.getElementById(‘printCSS’);
-     if(currCSS.media == ‘all’)
-         currCSS.media = ‘print’;
-     else currCSS.media = ‘all’;
 }

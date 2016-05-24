@@ -1,11 +1,11 @@
 class MyUploader < CarrierWave::Uploader::Base
-  storage :fog # Needs to be :file for local and :fog for aws
+  storage :file # Needs to be :file for local and :fog for aws
   include CarrierWave::MiniMagick
 
   process resize_to_fit: [600, 400]
 
   version :thumb do
-    process resize_to_fill: [150,150]
+    process resize_to_fill: [300,200]
   end
 
   def store_dir

@@ -1,15 +1,20 @@
 <div class="container">
-  <h2>
-    <% if @category.name == "entrees" %>
-      Entrées
-    <% else %>
-      <%= @category.name.titleize %>
-    <% end %></h2>
-  <% @cat_page.each do |recipe| %>
-    <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
-
-  <% end %>
-  <%= will_paginate @cat_page, renderer: BootstrapPagination::Sinatra %>
-  <br>
-  <p><a href="/categories">View All Categories</a></p>
+  <div class="col-md-12">
+    <h2 class="recipe-h3">
+      <% if @category.name == "entrees" %>
+        Entrées
+      <% else %>
+        <%= @category.name.titleize %>
+      <% end %>
+    </h2>
+    <hr class="recipe-hr">
+    <% @cat_page.each do |recipe| %>
+      <div class="col-md-4 recipe-thumbs">
+        <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links"><img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
+        <p class="recipe-text"><%= recipe.name.titleize %></a></p>
+      </div>
+    <% end %>
+    <br>
+    <div class="col-md-12 text-center"><a href="/categories">View All Categories</a></div>
+  </div>
 </div>

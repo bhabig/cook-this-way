@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/bmabey/database_cleaner.git
-  revision: f15d7610a801e40d1570b56e869e563cdcff198a
+  revision: f052d64d3be9351a98a99e932a59be528ccc561c
   specs:
     database_cleaner (1.5.3)
 
@@ -26,6 +26,7 @@ GEM
     bcrypt (3.1.11)
     bond (0.5.1)
     builder (3.2.2)
+    byebug (9.0.4)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -106,6 +107,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.0)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -186,6 +190,7 @@ DEPENDENCIES
   omniauth-facebook
   pg
   pry
+  pry-byebug
   rack-test
   require_all
   rspec

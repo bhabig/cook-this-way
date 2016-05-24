@@ -1,11 +1,13 @@
 <div class="container">
   <% Category.all.each do |category| %>
     <div class="col-md-4 category-box">
-      <a class="category-links" href="/categories/<%= category.slug %>"><% if category.name == "entrees" %>
-        Entrées
-      <% else %>
-        <%= category.name.titleize %>
-      <% end %></a>
+      <a class="category-links" href="/categories/<%= category.slug %>">
+        <% if category.name == "entrees" %>
+          Entrées
+        <% else %>
+          <%= category.name.titleize %>
+        <% end %>
+      </a>
       <a href="/categories/<%= category.slug %>"><img src="/images/<%= category.slug %>.jpg" class="img-responsive"></a>
     </div>
   <% end %>

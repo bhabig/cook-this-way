@@ -1,21 +1,25 @@
 <div class="container">
-  <p><% if @ingredients.present? %>
-    <p>Here are the recipes containing one or more of the ingredient(s), <strong><%= params[:search] %></strong>, you entered.</p>
-    <% @recipes.each do |recipe| %>
-      <li><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>"><%= recipe.name %></a></li>
-    <% end %>
-  <% else %>
-    <p>There are no recipes containing the ingredient(s) <strong><%= params[:search] %></strong>.</p>
-  <% end %></p>
-  <p><a href="/search">Back to Search</a></p>
+  <div class="col-md-12">
+    <p><% if @ingredients.present? %>
+        <% if @ingredients_counter.count > 1 %>
+          <p>Here are the recipes containing either of the ingredients <strong><%= params[:search] %></strong>.</p>
+        <% else %>
+          <p>Here are the recipes containing the ingredient <strong><%= params[:search] %></strong>.</p>
+        <% end %>
+      <% @recipes.each do |recipe| %>
+      <div class="col-md-4 recipe-thumbs">
+        <a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links">
+        <img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block">
+          <p class="recipe-text"><%= recipe.name %></a></p>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="col-md-4 recipe-thumbs">
+        <p>There are no recipes containing the ingredient(s) <strong><%= params[:search] %></strong>.</p>
+      </div>
+    <% end %></p>
+  </div>
+  <div class="col-md-12">
+    <p><a href="/search">Back to Search</a></p>
+  </div>
 </div>
-
-<!--
-  Search through all the recipes
-  Find recipes that have the ingredient
-  Search through those recipes
-  Find those recipes that have the other ingredient
-  Rinse and repeat
-
-
- -->

@@ -1,59 +1,57 @@
 <div class="container">
-  <% if flash[:message] != nil %>
-    <span class="alert"><%= flash.now[:message] %></span>
-  <% end %>
-  <% if @recipe.avatar.url %>
-    <p><img src="<%= @recipe.avatar.url %>"></p>
-  <% end %>
-  <h2 class="recipe-header"><%= @recipe.name %></h2>
-    <% if !@user.liked? @recipe %>
-      <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/like" method="post">
-        <input id="hidden" type="hidden" name="_method" value="put">
-        <button class="btn-link like-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
-      </form>
-    <% else %>
-      <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/unlike" method="post">
-        <input id="hidden" type="hidden" name="_method" value="put">
-        <button class="btn-link unlike-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
-      </form>
+  <div class="col-md-8">
+    <% if flash[:message] != nil %>
+      <span class="alert"><%= flash.now[:message] %></span>
     <% end %>
-  <h6 class="clear"> Posted by <a href="/users/<%= @recipe.user.id %>/recipes"><%= @recipe.user.name %></a> in <a href="/categories/<%= @recipe.category.slug %>"><% if @recipe.category.name == "entrees" %>
-    Entrées
-  <% else %>
-    <%= @recipe.category.name.titleize %>
-  <% end %></a></h6>
-
-  <h6>Tags: <% @recipe.tags.each do |tag| %>
-    <%= tag.name %>
-  <% end %></h6>
-
-  <a href="javascript:window.print()" class="print-hide-me">Print</a><br />
-
-  <h4>Ingredients</h4>
-  <table cellpadding="5">
-    <tr>
-      <th>Amount</th>
-      <th>Measurement</th>
-      <th>Ingredient</th>
-    </tr>
-      <% @recipe.ingredients.each do |ingredient| %>
-        <tr>
-          <td><%= ingredient.amount %></td>
-          <td><%= ingredient.measurement_type %></td>
-          <td><%= ingredient.name %></td>
-        </tr>
+    <% if @recipe.avatar.url %>
+      <p><img src="<%= @recipe.avatar.url %>" class="img-responsive"></p>
+    <% end %>
+    <h2 class="recipe-header"><%= @recipe.name.titleize %></h2>
+      <% if !@user || !@user.liked?(@recipe) %>
+        <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/like" method="post">
+          <input id="hidden" type="hidden" name="_method" value="put">
+          <button class="btn-link like-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
+        </form>
+      <% else %>
+        <form class="recipe-header-heart" action="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/unlike" method="post">
+          <input id="hidden" type="hidden" name="_method" value="put">
+          <button class="btn-link unlike-heart"><i class="fa fa-heart fa-2x"></i> <%= @recipe.get_likes.count %></button>
+        </form>
       <% end %>
-  </table>
-  <h4>Instructions</h4>
-  <p><%= @recipe.instructions %></p>
-  <p><% if @recipe.user_id == session[:user_id] %>
-    <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/edit">Edit Your Recipe</a>
-  <% else %>
-    <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/makeit">Make It Your Own</a>
-  <% end %></p>
-  <p><a href="/categories/<%= @category.slug %>" class="print-hide-me">View All <% if @category.slug == "entrees" %>
-    Entrées
-  <% else %>
-    <%= @category.slug.titleize %>
-  <% end %></a></p>
+    <h6 class="clear"> Posted by <a href="/users/<%= @recipe.user.id %>/recipes"><%= @recipe.user.name %></a> in <a href="/categories/<%= @recipe.category.slug %>"><% if @recipe.category.name == "entrees" %>
+      Entrées
+    <% else %>
+      <%= @recipe.category.name.titleize %>
+    <% end %></a></h6>
+
+    <a href="javascript:window.print()" class="print-hide-me">Print Recipe</a><br />
+
+    <h4>Ingredients</h4>
+      <% @recipe.ingredients.each do |ingredient| %>
+        <p>
+          <%= ingredient.amount %>
+          <% if ingredient.amount > 1 %>
+            <%= ingredient.measurement_type.titleize.pluralize %>
+          <% else %>
+            <%= ingredient.measurement_type.titleize %>
+          <% end %>
+          of <%= ingredient.name.titleize %>
+
+      <% end %>
+    <h4>Instructions</h4>
+
+      <p><%= @recipe.instructions %></p>
+      <p><% if @recipe.user_id == session[:user_id] %>
+        <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/edit">Edit Your Recipe</a>
+      <% else %>
+        <a class="btn btn-default" href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>/makeit">Make It Your Own</a>
+      <% end %></p>
+    <div class="col-md-12">
+      <p><a href="/categories/<%= @category.slug %>" class="print-hide-me">View All <% if @category.slug == "entrees" %>
+        Entrées
+      <% else %>
+        <%= @category.slug.titleize %>
+      <% end %></a></p>
+    </div>
+  </div>
 </div>

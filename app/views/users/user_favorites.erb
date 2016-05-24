@@ -2,14 +2,19 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <% if @user == @view_user %>
-    <h4>Your Favorites</h4>
-  <% else %>
-    <h4><%= @view_user.name %>'s Favorites</h4>
-  <% end %>
-  <% @view_user.find_voted_items.each do |item| %>
-    <% @recipe = Recipe.find_by_name(item.name) %>
-    <li><a href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>"><%= item.name %></a></li>
-  <% end %>
-
+  <div class="col-md-12">
+    <% if @user == @view_user %>
+      <h3 class="recipe-h3">Your Favorites</h3>
+    <% else %>
+      <h3 class="recipe-h3"><%= @view_user.name %>'s Favorites</h3>
+    <% end %>
+    <hr class="recipe-hr">
+    <% @view_user.find_voted_items.each do |item| %>
+      <div class="col-md-4 recipe-thumbs">
+        <% @recipe = Recipe.find_by_name(item.name) %>
+        <p><a href="/recipes/<%= @recipe.id %>/<%= @recipe.slug %>" class="recipe-links"><img src="<%= @recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
+        <p class="recipe-text"><%= item.name.titleize %></a></p>
+      </div>
+    <% end %>
+  </div>
 </div>

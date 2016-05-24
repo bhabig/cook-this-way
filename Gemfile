@@ -17,12 +17,14 @@ gem 'koala'
 gem 'acts_as_votable'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'faker'
+
 
 group :development do
  gem 'sqlite3'
  gem "tux"
- gem 'faker'
  gem 'pry'
+ gem 'pry-byebug'
  gem 'shotgun'
  gem 'dotenv'
 end

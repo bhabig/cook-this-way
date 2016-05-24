@@ -2,25 +2,42 @@
   <% if flash[:message] != nil %>
     <span class="alert"><%= flash.now[:message] %></span>
   <% end %>
-  <h2>Add A Recipe</h2>
-  <form action="/recipes" method="post" enctype="multipart/form-data">
-    <p>Name: <input type="text" name="recipe[name]" id="recipe_name" required></p>
-    <p>Add a Photo: <input type="file" name="file" /></p>
-    <p>Category (select one): <br>
-      <% Category.all.each do |category| %>
-      <input type="radio" name="recipe[category_id]" value="<%= category.id %>" id="category_<%= category.id %>" required> <%= category.name %>
-    <% end %></p>
-    <p>Tags (you may select more than one): <br>
-      <% Tag.all.each do |tag| %>
-      <input type="checkbox" name="recipe[tag_ids][]" value="<%= tag.id %>" id="tag_<%= tag.id %>"> <%= tag.name %>
-    <% end %></p>
-    <p>Ingredients</p>
-    <p>Name: <input type="text" name="ingredient[][name]" id="ingredient_name_1" required> Amount: <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_1" required> Measurement: <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_1" required></p>
-    <div id="new_ingredient">
-    </div>
-    <p><input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" class="btn btn-default" /> <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Added Ingredient" class="btn btn-default" /></p>
-    <p>Instructions:<br />
-      <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" required></textarea></p>
-      <input type="submit" value="Add Recipe" class="btn btn-default">
-  </form>
+  <h2 class="recipe-h3">Add A Recipe</h2>
+  <div class="col-md-8 col-md-offset-2">
+    <form action="/recipes" method="post" enctype="multipart/form-data" class="well">
+      <div class="form-group"><strong>Name:</strong> <input type="text" name="recipe[name]" id="recipe_name" size="30" required></div>
+      <div class="form-group"><strong>Add a Photo:</strong> <input type="file" name="file" /></div>
+      <div class="form-group"><strong>Category (select one):</strong> <br>
+        <% Category.all.each do |category| %>
+          <input type="radio" name="recipe[category_id]" value="<%= category.id %>" id="category_<%= category.id %>" class="radio-inline" required>
+          <% if category.name == "entrees" %>
+            Entrées
+          <% else %>
+            <%= category.name.titleize %>
+          <% end %>
+        <% end %>
+      </div>
+      <hr>
+      <div class="form-group">
+        <strong>Ingredient Name:</strong> <input type="text" name="ingredient[][name]" id="ingredient_name_1" required>
+      </div>
+      <div class="form-group">
+        <strong>Ingredient Amount:</strong> <input type="text" name="ingredient[][amount]" size="5" id="ingredient_amount_1" required>
+      </div>
+      <div class="form-group">
+        <strong>Ingredient Measurement:</strong> <input type="text" name="ingredient[][measurement_type]" size="33" placeholder="e.g. cup, teaspoon, tablespoon, etc." id="ingredient_measurement_1" required>
+      </div>
+      <div class="form-group" id="new_ingredient"><!-- receives new ingredient forms --></div>
+      <div class="form-group">
+        <input type="button" id="more_fields" onclick="add_fields();" value="Add Another Ingredient" class="btn btn-default" />
+        <input type="button" id="less_fields" onclick="remove_fields();" value="Remove Added Ingredient" class="btn btn-default" />
+      </div>
+      <div class="form-group">
+        <hr>
+        <strong>Instructions:</strong><br />
+        <textarea name="recipe[instructions]" cols="40" rows="5" id="recipe_instructions" required></textarea>
+      </div>
+        <input type="submit" value="Add Recipe" class="btn btn-default">
+    </form>
+  </div>
 </div>

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry-byebug'
 
 describe RecipesController do
   before(:each) do
@@ -12,7 +13,6 @@ describe RecipesController do
     Tag.create(name: "home cookin")
 
     @recipe = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: @user.id, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.', category_id: @category.id)
-
     @ingredient1 = Ingredient.create(name: "Dough", measurement_type: "crust", amount: 1)
     @ingredient2 = Ingredient.create(name: "Pepperoni", measurement_type: "slice", amount: 42)
     @ingredient3 = Ingredient.create(name: "cheese", measurement_type: "cups", amount: 3)
@@ -27,7 +27,7 @@ describe RecipesController do
     it 'redirects a user that is not signed in' do
       visit '/signout'
       visit '/recipes/new'
-      expect(page).to have_content('Sign in to access all content')
+      expect(page).to have_content('Sign up to access all content')
     end
 
     it 'shows logged in users the add a recipe page' do
@@ -75,12 +75,6 @@ describe RecipesController do
       visit '/signout'
       visit "/recipes/#{@recipe.id}/#{@recipe.slug}/edit"
       expect(page).to have_content('You must be signed in to edit a recipe.')
-    end
-
-    it 'redirects a user that does not own the recipe' do
-      @recipe2 = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 10, instructions: 'Bresaola rump tongue.', category_id: @category.id)
-      visit "/recipes/#{@recipe2.id}/#{@recipe2.slug}/edit"
-      expect(page).to have_content('You can only edit your recipes.')
     end
 
     it 'shows logged in users the edit a recipe page' do
@@ -234,7 +228,7 @@ describe RecipesController do
     it 'allows users to make a recipe their own' do
       visit '/signout'
       visit "/recipes/#{@recipe.id}/#{@recipe.slug}"
-      expect(page).to have_content('Make It Your Own')
+      expect(page).to have_link('Make It Your Own')
     end
   end
 
