@@ -13,7 +13,7 @@ class MyUploader < CarrierWave::Uploader::Base
   end
 
   def cache_dir
-    "../public/images/uploads/tmp/#{model.id}"
+    "public/images/uploads/tmp/#{model.id}"
   end
 
   def extension_whitelist
