@@ -15,7 +15,7 @@ describe UsersController do
 
       it 'asks the user to signup' do
         visit '/signup'
-        expect(page).to have_content('Sign up to access all content')
+        expect(page).to have_content('Sign up to access all these great features!')
       end
     end
 

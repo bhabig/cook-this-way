@@ -33,7 +33,7 @@ describe RecipesController do
     it 'redirects a user that is not signed in' do
       visit '/signout'
       visit '/recipes/new'
-      expect(page).to have_content('Sign up to access all content')
+      expect(page).to have_content('Sign up to access all these great features!')
     end
 
     it 'shows logged in users the add a recipe page' do
