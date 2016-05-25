@@ -32,7 +32,7 @@ require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 CarrierWave.configure do |config|
 config.storage    = :aws
-config.aws_bucket = ENV.fetch('AWS_S3_BUCKET')
+config.aws_bucket = ENV['AWS_S3_BUCKET']
 config.aws_acl    = 'public-read'
 
 # The maximum period for authenticated_urls is only 7 days.
@@ -45,8 +45,8 @@ config.aws_attributes = {
 }
 
 config.aws_credentials = {
-  access_key_id:     ENV.fetch('AWS_S3_ACCESS_KEY'),
-  secret_access_key: ENV.fetch('AWS_S3_KEY_ID'),
-  region:            ENV.fetch('AWS_S3_REGION') # Required
+  access_key_id:     ENV['AWS_S3_ACCESS_KEY'],
+  secret_access_key: ENV['AWS_S3_KEY_ID'],
+  region:            ENV['AWS_S3_REGION'] # Required
 }
 end
