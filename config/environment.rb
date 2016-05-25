@@ -30,7 +30,7 @@ require 'carrierwave'
 require 'carrierwave/orm/activerecord'
 CarrierWave.configure do |config|
 config.storage    = :aws
-config.aws_bucket = ENV.fetch('AWS_S3_BUCKET')
+config.aws_bucket = 'ctw-kbjwgqjqfzubu'
 config.aws_acl    = 'public-read'
 
 # The maximum period for authenticated_urls is only 7 days.
