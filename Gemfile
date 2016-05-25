@@ -4,7 +4,7 @@ gem "sinatra"
 gem 'activerecord', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
 gem 'carrierwave'
-gem "fog-aws"
+gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'sinatra-flash'
 gem 'sinatra-redirect-with-flash'
