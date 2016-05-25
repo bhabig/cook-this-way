@@ -22,7 +22,7 @@ class RecipesController < ApplicationController
       erb :'recipes/create_recipe'
     else
       flash[:message] = "You must be signed in to add a recipe"
-      redirect to
+      redirect to '/signup'
     end
   end
 
@@ -43,10 +43,11 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by_id(params[:id])
     if !session[:user_id]
       flash[:message] = "You must be signed in to edit a recipe."
-      erb :'users/signup'
+      redirect to '/signup'
     end
     @user = User.find_by_id(session[:user_id])
-    if @user == @recipe.user
+    if
+      @user == @recipe.user
       erb :'recipes/edit_recipe'
     else
       flash[:message] = "You can only edit your recipes."
@@ -75,10 +76,11 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find_by_id(params[:id])
     if !session[:user_id]
       flash[:message] = "You must be signed in to make a recipe your own."
-      redirect to "/users/signup"
+      redirect to "/signup"
     end
     @user = User.find_by_id(session[:user_id])
-    if @user == @recipe.user
+    if
+      @user == @recipe.user
       flash[:message] = "That recipe already belongs to you."
       redirect to "/recipes/#{@recipe.id}/#{@recipe.slug}"
     else

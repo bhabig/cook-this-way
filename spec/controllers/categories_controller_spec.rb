@@ -19,7 +19,7 @@ describe CategoriesController do
 
     it 'has an image for each category' do
       visit '/categories'
-      expect(page).to have_css("img[src*='#{@recipe.avatar.url}']")
+      expect(page).to have_css("img[src*='/images/#{@category.slug}.jpg']")
     end
 
     it 'has a link to each category page' do

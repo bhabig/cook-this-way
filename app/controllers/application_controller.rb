@@ -29,13 +29,25 @@ class ApplicationController < Sinatra::Base
   end
   if ENV['RACK_ENV'] != 'development'
     error do
-      status 404
-      erb :error
+      if !session[:user_id]
+        status 404
+        erb :error
+      else
+        @user = User.find(session[:user_id])
+        status 404
+        erb :error
+      end
     end
 
     error Sinatra::NotFound do
-      status 404
-      erb :error
+      if !session[:user_id]
+        status 404
+        erb :error
+      else
+        @user = User.find(session[:user_id])
+        status 404
+        erb :error
+      end
     end
   end
 

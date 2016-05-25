@@ -5,22 +5,28 @@ describe RecipesController do
   before(:each) do
     facebook_login_setup
     visit '/auth/facebook'
-    @user = User.last
+    User.create(
+      provider: "facebook",
+      uid: Faker::Number.between(100000, 1000000),
+      name: "Steve Rogers",
+      email: Faker::Internet.safe_email("steve.rogers"),
+      oauth_token: Faker::Lorem.characters(30),
+      oauth_expires_at: Faker::Time.forward(30, :morning)
+    )
 
     @category = Category.create(name: "yummy")
     Category.create(name: "delish")
-    @tag = Tag.create(name: "easy-bake")
-    Tag.create(name: "home cookin")
 
-    @recipe = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: @user.id, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.', category_id: @category.id)
+    @recipe = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 1, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.', category_id: @category.id)
+    @recipe2 = Recipe.create(name: 'Pepperoni Pizza', user_id: 2, instructions: 'Bresaola rump tongue, prosciutto cow short ribs corned beef venison short loin tri-tip pork chop. Frankfurter pork beef rump landjaeger sausage tenderloin pastrami salami brisket ground round pork chop filet mignon boudin. Venison fatback prosciutto capicola bresaola doner ham hock shankle jowl pastrami. Andouille meatloaf chuck salami kevin pork loin, ribeye sirloin meatball shankle cow.', category_id: @category.id)
     @ingredient1 = Ingredient.create(name: "Dough", measurement_type: "crust", amount: 1)
     @ingredient2 = Ingredient.create(name: "Pepperoni", measurement_type: "slice", amount: 42)
     @ingredient3 = Ingredient.create(name: "cheese", measurement_type: "cups", amount: 3)
 
-    @recipe.tags << @tag
     @recipe.ingredients << @ingredient1
     @recipe.ingredients << @ingredient2
     @recipe.ingredients << @ingredient3
+    @recipe2.ingredients << @ingredient1
   end
 
   describe 'Create New Recipe' do
@@ -40,7 +46,6 @@ describe RecipesController do
       expect(page.body).to include('<form')
       expect(page.body).to include('recipe[name]')
       expect(page.body).to include('recipe[category_id]')
-      expect(page.body).to include('recipe[tag_ids][]')
       expect(page.body).to include('ingredient[][name]')
       expect(page.body).to include('ingredient[][amount]')
       expect(page.body).to include('ingredient[][measurement_type]')
@@ -51,7 +56,6 @@ describe RecipesController do
       visit '/recipes/new'
       fill_in :recipe_name, :with => "Pepperoni Monkey Bread"
       choose "category_#{Category.last.id}"
-      check "tag_#{Tag.last.id}"
       fill_in :ingredient_name_1, :with => "Pepperoni"
       fill_in :ingredient_amount_1, :with => 42
       fill_in :ingredient_measurement_1, :with => "slice"
@@ -61,10 +65,9 @@ describe RecipesController do
       click_button "Add Recipe"
       recipe = Recipe.last
 
-      expect(recipe.name).to eq("Pepperoni Monkey Bread")
+      expect(recipe.name).to eq("pepperoni monkey bread")
       expect(recipe.category.name).to eq("delish")
-      expect(recipe.tags.first.name).to eq("home cookin")
-      expect(recipe.ingredients.first.name).to eq("Pepperoni")
+      expect(recipe.ingredients.first.name).to eq("pepperoni")
       expect(recipe.instructions).to eq("Make it. Cook it. Eat it.")
     end
   end
@@ -89,7 +92,6 @@ describe RecipesController do
       expect(page.body).to include('<form')
       expect(page.body).to include('recipe[name]')
       expect(page.body).to include('recipe[category_id]')
-      expect(page.body).to include('recipe[tag_ids][]')
       expect(page.body).to include('ingredient[][name]')
       expect(page.body).to include('ingredient[][amount]')
       expect(page.body).to include('ingredient[][measurement_type]')
@@ -98,10 +100,10 @@ describe RecipesController do
 
     it 'allows the user to edit a recipe' do
       @recipe = Recipe.first
+      @user = User.first
       visit "/recipes/#{@recipe.id}/#{@recipe.slug}/edit"
       fill_in :recipe_name, :with => "Pepperoni Monkey Bread"
       choose "category_#{Category.last.id}"
-      check "tag_#{Tag.last.id}"
       fill_in :ingredient_name_1, :with => "Pepperoni"
       fill_in :ingredient_amount_1, :with => 42
       fill_in :ingredient_measurement_1, :with => "slice"
@@ -111,10 +113,9 @@ describe RecipesController do
       click_on "Save Changes"
       recipe = Recipe.first
 
-      expect(recipe.name).to eq("Pepperoni Monkey Bread")
+      expect(recipe.name).to eq("pepperoni monkey bread")
       expect(recipe.category.name).to eq("delish")
-      expect(recipe.tags.last.name).to eq("home cookin")
-      expect(recipe.ingredients.first.name).to eq("Pepperoni")
+      expect(recipe.ingredients.first.name).to eq("pepperoni")
       expect(recipe.instructions).to eq("Make it. Cook it. Eat it.")
     end
   end
@@ -140,13 +141,11 @@ describe RecipesController do
     end
 
     it 'lets the user view the make it your recipe form' do
-      @recipe2 = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 10, instructions: 'Bresaola rump tongue.', category_id: @category.id)
-      @recipe2.ingredients << Ingredient.create(name: "Dough", measurement_type: "crust", amount: 1)
-      visit "/recipes/#{@recipe2.id}/#{@recipe2.slug}/makeit"
+      @recipe = Recipe.last
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/makeit"
       expect(page.body).to include('<form')
       expect(page.body).to include('recipe[name]')
       expect(page.body).to include('recipe[category_id]')
-      expect(page.body).to include('recipe[tag_ids][]')
       expect(page.body).to include('ingredient[][name]')
       expect(page.body).to include('ingredient[][amount]')
       expect(page.body).to include('ingredient[][measurement_type]')
@@ -154,12 +153,10 @@ describe RecipesController do
     end
 
     it 'allows the user to make a recipe their own' do
-      @recipe2 = Recipe.create(name: 'Extreme Pepperoni Pizza', user_id: 10, instructions: 'Bresaola rump tongue.', category_id: @category.id)
-      @recipe2.ingredients << Ingredient.create(name: "Dough", measurement_type: "crust", amount: 1)
-      visit "/recipes/#{@recipe2.id}/#{@recipe2.slug}/makeit"
+      @recipe = Recipe.last
+      visit "/recipes/#{@recipe.id}/#{@recipe.slug}/makeit"
       fill_in :recipe_name, :with => "Pepperoni Monkey Bread"
       choose "category_#{Category.last.id}"
-      check "tag_#{Tag.last.id}"
       fill_in :ingredient_name_1, :with => "Pepperoni"
       fill_in :ingredient_amount_1, :with => 42
       fill_in :ingredient_measurement_1, :with => "slice"
@@ -169,10 +166,9 @@ describe RecipesController do
       click_on "Make It Your Own"
       recipe2 = Recipe.last
 
-      expect(recipe2.name).to eq("Pepperoni Monkey Bread")
+      expect(recipe2.name).to eq("pepperoni monkey bread")
       expect(recipe2.category.name).to eq("delish")
-      expect(recipe2.tags.last.name).to eq("home cookin")
-      expect(recipe2.ingredients.first.name).to eq("Pepperoni")
+      expect(recipe2.ingredients.first.name).to eq("pepperoni")
       expect(recipe2.instructions).to eq("Make it. Cook it. Eat it.")
     end
   end
@@ -197,6 +193,7 @@ describe RecipesController do
       end
 
       it "displays the recipe's creator" do
+        @user = User.first
         expect(page).to have_content(@user.name)
       end
 
