@@ -1,6 +1,3 @@
-require 'dotenv'
-Dotenv.load
-
 require './config/environment'
 
 if ActiveRecord::Migrator.needs_migration?
