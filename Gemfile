@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem "sinatra"
 gem 'activerecord', :require => 'active_record'
 gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
+gem 'dotenv'
 gem 'carrierwave'
 gem 'carrierwave-aws'
 gem 'mini_magick'
@@ -26,7 +27,6 @@ group :development do
  gem 'pry'
  gem 'pry-byebug'
  gem 'shotgun'
- gem 'dotenv'
 end
 
 group :production do

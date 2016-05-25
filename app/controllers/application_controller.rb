@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
     enable :sessions
     register Sinatra::Flash
     set :session_secret, ENV['SESSION_KEY'] || 'CAbo7bFkcNVh7MEjXPK)[agfkvRJv'
-     if ENV['RACK_ENV'] != 'development'
+     if ENV['RACK_ENV'] == 'development'
       set :raise_errors, true
       set :show_exceptions, true
     else
@@ -27,7 +27,7 @@ class ApplicationController < Sinatra::Base
       set :show_exceptions, false
     end
   end
-  if ENV['RACK_ENV'] == 'development'
+  if ENV['RACK_ENV'] != 'development'
     error do
       if !session[:user_id]
         status 404
