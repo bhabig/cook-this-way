@@ -2,6 +2,10 @@
   <div class="title">
     <h1 class="header-h1">Cook This Way</h1>
     <h4 class="header-h4">Recipes OUR way that you can make your own!</h4>
+    <% if !@user %>
+      <br>
+      <a href="/signup"><button class="btn btn-default">Sign up to access more features</button></a>
+    <% end %>
   </div>
 </header>
 <div class="container">

@@ -2,7 +2,7 @@
   <% if flash[:message] != nil %>
     <div class="alert"><%= flash.now[:message] %></div>
   <% end %>
-  <h2>Sign up to access all content</h2>
+  <h3>Sign up to access all these great features!</h3>
   <p>By signing in with Facebook, you can</p>
   <ul>
     <li>Add your recipes</li>
@@ -10,4 +10,5 @@
     <li>Save your favorite recipes</li>
     <li>View other user's recipes and favorites pages.</li>
   </ul>
+  <a href="/auth/facebook"><button class="btn btn-default"><i class="fa fa-facebook-official fb-icon-fa"></i> Sign in with Facebook</button></a>
 </div>
