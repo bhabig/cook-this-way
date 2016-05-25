@@ -64,8 +64,6 @@ class RecipesController < ApplicationController
     end
     if params[:file]
       @recipe.avatar = params[:file]
-    else
-      @recipe.remove_avatar!
     end
     @recipe.save!
     flash[:message] = "You have successfully editted your recipe."
