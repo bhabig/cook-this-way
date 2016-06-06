@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
 
-  get '/signin' do
-    erb :'users/signin'
+  get '/login' do
+    if logged_in?
+      flash[:message] = "You are already logged in."
+      redirect to '/account'
+    else
+      erb :'users/login'
+    end
   end
 
   get '/signup' do
@@ -9,6 +14,29 @@ class UsersController < ApplicationController
       @user = current_user
     end
     erb :'/users/signup'
+  end
+
+  post '/signup' do
+    if @user = User.find_by(:email => params[:email])
+      flash[:message] = "That email is already in use."
+      redirect to '/signup'
+    else
+      @user = User.create(:name => params[:name], :email => params[:email], :password => params[:password])
+      session[:user_id] = @user.id
+      redirect '/account'
+    end
+  end
+
+  post "/login" do
+    @user = User.find_by(:email => params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      flash[:message] = "You have successfully logged in!"
+      redirect '/account'
+    else
+      flash[:message] = "Please check your credentials and try again."
+      redirect '/login'
+    end
   end
 
   get '/signout' do

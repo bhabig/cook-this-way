@@ -10,5 +10,12 @@
     <li>Save your favorite recipes</li>
     <li>View other user's recipes and favorites pages.</li>
   </ul>
-  <a href="/signin"><button class="btn btn-default"><i class="fa fa-spoon fa-lg signin-icon-fa"></i> Sign in</button></a>
+  <div class="well col-md-6">
+    <form action="/signup" method="POST">
+      <p>Name: <input type="text" name="name" required></p>
+      <p>Email: <input type="email" name="email" required></p>
+      <p>Password: <input type="password" name="password" required></p>
+      <p><a href="/signup"><button class="btn btn-default"><i class="fa fa-spoon fa-lg signin-icon-fa"></i> Sign Up</button></a></p>
+    </form>
+  </div>
 </div>

@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="col-md-8">
+    <h2>Please sign in</h2>
+    <p><% if flash[:message] != nil %>
+      <div class="alert"><%= flash.now[:message] %></div>
+    <% end %></p>
+    <div class="well col-md-6">
+      <form action="/login" method="POST">
+        <p>Email: <input type="email" name="email" required></p>
+        <p>Password: <input type="password" name="password" required></p>
+        <p><a href="/signup"><button class="btn btn-default"><i class="fa fa-sign-in fa-lg signin-icon-fa"></i> Log in</button></a></p>
+      </form>
+    </div>
+  </div>
+</div>
