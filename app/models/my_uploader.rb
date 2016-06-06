@@ -29,7 +29,9 @@ class MyUploader < CarrierWave::Uploader::Base
   end
 
   def default_url(*args)
-    'https://s3-us-west-2.amazonaws.com/ctw-kbjwgqjqfzubu/public/images/missing.jpg'
+    if ENV['RACK_ENV']
+      'https://s3-us-west-2.amazonaws.com/ctw-kbjwgqjqfzubu/public/images/missing.jpg'
+    end
   end
 
   protected
