@@ -17,20 +17,20 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    if @user = User.find_by(:email => params[:email])
+    if @user = find_user_by_email
       flash[:message] = "That email is already in use."
       redirect to '/signup'
     else
       @user = User.create(:name => params[:name], :email => params[:email], :password => params[:password])
-      session[:user_id] = @user.id
+      set_session
       redirect '/account'
     end
   end
 
   post "/login" do
-    @user = User.find_by(:email => params[:email])
+    @user = find_user_by_email
     if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
+      set_session
       flash[:message] = "You have successfully logged in!"
       redirect '/account'
     else
@@ -55,24 +55,24 @@ class UsersController < ApplicationController
   end
 
   get '/users/:id/recipes' do
-    if !session[:user_id]
+    if !logged_in?
       flash[:message] = "You must be signed in to view a user's recipes page."
-      erb :'/users/signup'
+      redirect to '/signup'
     else
-      @user = User.find(session[:user_id])
-      @view_user = User.find_by_id(params[:id])
+      @user = current_user
+      @view_user = find_user_by_id
       @recipes = @view_user.recipes
       erb :'/users/user_recipes'
     end
   end
 
   get '/users/:id/favorites' do
-    if !session[:user_id]
+    if !logged_in?
       flash[:message] = "You must be signed in to view a user's recipes page."
       erb :'/users/signup'
     else
-      @user = User.find(session[:user_id])
-      @view_user = User.find_by_id(params[:id])
+      @user = current_user
+      @view_user = find_user_by_id
       erb :'/users/user_favorites'
     end
   end
