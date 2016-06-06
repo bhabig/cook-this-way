@@ -28,9 +28,15 @@ class RecipesController < ApplicationController
 
   post '/recipes' do
     user = User.find_by_id(session[:user_id])
-    @recipe = Recipe.create(name: params["recipe"]["name"].downcase, user_id: session[:user_id], instructions: params["recipe"]["instructions"], category_id: params["recipe"]["category_id"])
+    @recipe = Recipe.create(name: params["recipe"]["name"].downcase,
+              user_id: session[:user_id],
+              instructions: params["recipe"]["instructions"],
+              category_id: params["recipe"]["category_id"])
     params["ingredient"].each do |ingredient|
-      @recipe.ingredients << Ingredient.create(name: ingredient[:name].downcase, amount: ingredient[:amount], measurement_type: ingredient[:measurement_type].downcase)
+      @recipe.ingredients << Ingredient.create(
+                      name: ingredient[:name].downcase,
+                      amount: ingredient[:amount],
+                      measurement_type: ingredient[:measurement_type].downcase)
     end
     if params[:file]
       @recipe.avatar = params[:file]
@@ -57,10 +63,16 @@ class RecipesController < ApplicationController
 
   post '/recipes/:id/:slug' do
     @recipe = Recipe.find_by_id(params[:id])
-    @recipe.update(name: params["recipe"]["name"].downcase, user_id: session[:user_id], instructions: params["recipe"]["instructions"], category_id: params["recipe"]["category_id"])
+    @recipe.update(name: params["recipe"]["name"].downcase,
+                  user_id: session[:user_id],
+                  instructions: params["recipe"]["instructions"],
+                  category_id: params["recipe"]["category_id"])
     @recipe.ingredients.clear
     params["ingredient"].each do |ingredient|
-      @recipe.ingredients << Ingredient.create(name: ingredient[:name].downcase, amount: ingredient[:amount], measurement_type: ingredient[:measurement_type].downcase)
+      @recipe.ingredients << Ingredient.create(
+                      name: ingredient[:name].downcase,
+                      amount: ingredient[:amount],
+                      measurement_type: ingredient[:measurement_type].downcase)
     end
     if params[:file]
       @recipe.avatar = params[:file]
@@ -88,9 +100,16 @@ class RecipesController < ApplicationController
 
   post '/recipes/makeit' do
     user = User.find_by_id(session[:user_id])
-    @recipe = Recipe.create(name: params["recipe"]["name"].downcase, user_id: session[:user_id], instructions: params["recipe"]["instructions"], category_id: params["recipe"]["category_id"])
+    @recipe = Recipe.create(
+              name: params["recipe"]["name"].downcase,
+              user_id: session[:user_id],
+              instructions: params["recipe"]["instructions"],
+              category_id: params["recipe"]["category_id"])
     params["ingredient"].each do |ingredient|
-      @recipe.ingredients << Ingredient.create(name: ingredient[:name].downcase, amount: ingredient[:amount], measurement_type: ingredient[:measurement_type].downcase)
+      @recipe.ingredients << Ingredient.create(
+                      name: ingredient[:name].downcase,
+                      amount: ingredient[:amount],
+                      measurement_type: ingredient[:measurement_type].downcase)
     end
     if params[:file]
       @recipe.avatar = params[:file]
