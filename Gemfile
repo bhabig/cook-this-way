@@ -18,6 +18,7 @@ gem 'acts_as_votable'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'faker'
+gem 'bcrypt'
 
 
 group :development do

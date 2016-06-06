@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
 
-  get '/auth/:provider/callback' do
-    @user = User.from_omniauth(env["omniauth.auth"])
-    session[:user_id] = @user.id
-    flash[:message] = "You have successfully signed in!"
-    redirect to '/account'
+  get '/signin' do
+    erb :'users/signin'
   end
 
-  get '/auth/failure' do
-    redirect to '/'
+  get '/signup' do
+    if logged_in?
+      @user = current_user
+    end
+    erb :'/users/signup'
   end
 
   get '/signout' do
@@ -18,19 +18,12 @@ class UsersController < ApplicationController
   end
 
   get '/account' do
-    if current_user
+    if logged_in?
       @user = current_user
       erb :'/users/account'
     else
       redirect to '/'
     end
-  end
-
-  get '/signup' do
-    if session[:user_id]
-      @user = User.find(session[:user_id])
-    end
-    erb :'/users/signup'
   end
 
   get '/users/:id/recipes' do
