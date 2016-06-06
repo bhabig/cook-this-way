@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
     if logged_in?
       @user = current_user
     end
-    @category = Category.find_by_slug(params[:slug])
+    @category = find_category_by_slug
     @cat_page = @category.recipes
     erb :'/categories/show_category'
   end

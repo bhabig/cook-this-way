@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
       @user = current_user
     end
     @recipe = find_recipe_by_id
-    @category = Category.find_by_name(@recipe.category.name)
+    @category = find_category_by_name
     erb :'/recipes/show_recipe'
   end
 

@@ -3,15 +3,15 @@ require 'pry-byebug'
 
 describe RecipesController do
   before(:each) do
-    facebook_login_setup
-    visit '/auth/facebook'
+    create_new_user
+    visit '/login'
+    fill_in 'email', :with => 'steve.rogers@example.com'
+    fill_in 'password', :with => 'password'
+    click_button 'Log in'
     User.create(
-      provider: "facebook",
-      uid: Faker::Number.between(100000, 1000000),
-      name: "Steve Rogers",
-      email: Faker::Internet.safe_email("steve.rogers"),
-      oauth_token: Faker::Lorem.characters(30),
-      oauth_expires_at: Faker::Time.forward(30, :morning)
+      name: "Tony Stark",
+      email: Faker::Internet.safe_email("tony.stark"),
+      password: "password"
     )
 
     @category = Category.create(name: "yummy")

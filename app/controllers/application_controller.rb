@@ -136,6 +136,14 @@ class ApplicationController < Sinatra::Base
       Recipe.find_by_id(params[:id])
     end
 
+    def find_category_by_slug
+      Category.find_by_slug(params[:slug])
+    end
+
+    def find_category_by_name
+      Category.find_by_name(@recipe.category.name)
+    end
+
   end
 
 
