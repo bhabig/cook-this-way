@@ -1,16 +1,16 @@
 class CategoriesController < ApplicationController
   get '/categories' do
-    if session[:user_id]
-      @user = User.find(session[:user_id])
+    if logged_in?
+      @user = current_user
     end
     erb :'/categories/index'
   end
 
   get '/categories/:slug' do
-    if session[:user_id]
-      @user = User.find(session[:user_id])
+    if logged_in?
+      @user = current_user
     end
-    @category = Category.find_by_slug(params[:slug])
+    @category = find_category_by_slug
     @cat_page = @category.recipes
     erb :'/categories/show_category'
   end

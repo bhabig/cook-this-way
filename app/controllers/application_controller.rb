@@ -1,3 +1,4 @@
+
 require './config/environment'
 require 'sinatra'
 require 'sinatra/activerecord'
@@ -29,22 +30,22 @@ class ApplicationController < Sinatra::Base
   end
   if ENV['RACK_ENV'] != 'development'
     error do
-      if !session[:user_id]
+      if !logged_in?
         status 404
         erb :error
       else
-        @user = User.find(session[:user_id])
+        @user = current_user
         status 404
         erb :error
       end
     end
 
     error Sinatra::NotFound do
-      if !session[:user_id]
+      if !logged_in?
         status 404
         erb :error
       else
-        @user = User.find(session[:user_id])
+        @user = current_user
         status 404
         erb :error
       end
@@ -52,26 +53,26 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
-    if !session[:user_id]
+    if !logged_in?
       erb :index
     else
-      @user = User.find(session[:user_id])
+      @user = current_user
       erb :index
     end
   end
 
   get '/search' do
-    if !session[:user_id]
+    if !logged_in?
       erb :'/search/search'
     else
-      @user = User.find(session[:user_id])
+      @user = current_user
       erb :'/search/search'
     end
   end
 
   get '/search/recipes' do
-    if session[:user_id]
-      @user = User.find(session[:user_id])
+    if logged_in?
+      @user = current_user
     end
     @recipes = Recipe.all
     if params[:search]
@@ -86,8 +87,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/search/ingredients' do
-    if session[:user_id]
-      @user = User.find(session[:user_id])
+    if logged_in?
+      @user = current_user
     end
     @ingredients = Ingredient.all
     @recipes = Recipe.all
@@ -118,6 +119,30 @@ class ApplicationController < Sinatra::Base
 
     def current_user
       User.find(session[:user_id])
+    end
+
+    def set_session
+      session[:user_id] = @user.id
+    end
+
+    def find_user_by_id
+      User.find_by_id(params[:id])
+    end
+
+    def find_user_by_email
+      User.find_by_email(params[:email])
+    end
+
+    def find_recipe_by_id
+      Recipe.find_by_id(params[:id])
+    end
+
+    def find_category_by_slug
+      Category.find_by_slug(params[:slug])
+    end
+
+    def find_category_by_name
+      Category.find_by_name(@recipe.category.name)
     end
 
   end
