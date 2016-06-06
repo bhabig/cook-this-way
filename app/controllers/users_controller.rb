@@ -18,8 +18,8 @@ class UsersController < ApplicationController
   end
 
   get '/account' do
-    if session[:user_id]
-      @user = User.find(session[:user_id])
+    if current_user
+      @user = current_user
       erb :'/users/account'
     else
       redirect to '/'
@@ -40,6 +40,7 @@ class UsersController < ApplicationController
     else
       @user = User.find(session[:user_id])
       @view_user = User.find_by_id(params[:id])
+      @recipes = @view_user.recipes
       erb :'/users/user_recipes'
     end
   end

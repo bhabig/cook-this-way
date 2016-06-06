@@ -97,7 +97,7 @@ class ApplicationController < Sinatra::Base
       @ingredients.flatten!
       if @ingredients.count > 0
         @ingredients_counter = @ingredients.uniq { |ingredient| ingredient.name }
-      else
+    else
         @ingredients_counter = params[:search].downcase.split(/\s*,\s*/)
       end
       @recipes = []

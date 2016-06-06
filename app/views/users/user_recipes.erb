@@ -10,7 +10,7 @@
     <% end %>
     <hr class="recipe-hr">
     <p>
-      <% @view_user.recipes.each do |recipe| %>
+      <% @recipes.each do |recipe| %>
         <div class="col-md-4 recipe-thumbs">
           <p><a href="/recipes/<%= recipe.id %>/<%= recipe.slug %>" class="recipe-links"><img src="<%= recipe.avatar.thumb.url %>" class="img-responsive center-block"></p>
           <p class="recipe-text"><%= recipe.name.titleize %></a></p>
