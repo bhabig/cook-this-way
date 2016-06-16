@@ -1,4 +1,8 @@
 # Cook This Way
+
+## Project Plans
+This project is currently built on Sinatra. I will be eventually porting it over to Rails as I find time.
+
 ## Recipes OUR way that you can make your own
 
 [ https://cook-this-way.herokuapp.com
