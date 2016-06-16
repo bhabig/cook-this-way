@@ -1,4 +1,4 @@
-# Cook This Way
+# Cook This Way - Sinatra Branch
 ## Recipes OUR way that you can make your own
 
 [ https://cook-this-way.herokuapp.com
